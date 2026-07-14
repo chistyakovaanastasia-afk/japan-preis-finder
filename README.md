@@ -2,11 +2,6 @@
 
 ## ➡️ Tool öffnen
 
-**https://chistyakovaanastasia-afk.github.io/Resp-Claude/preise/** ← aktueller Link
-
-Sobald GitHub Pages in diesem Repository aktiviert ist
-(Settings → Pages → Source: „GitHub Actions"), läuft das Tool
-zusätzlich unter der eigenen Adresse:
 **https://chistyakovaanastasia-afk.github.io/japan-preis-finder/**
 
 ---
