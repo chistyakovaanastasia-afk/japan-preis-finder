@@ -1,5 +1,16 @@
 # 🛒 Japan Preis-Finder
 
+## ➡️ Tool öffnen
+
+**https://chistyakovaanastasia-afk.github.io/Resp-Claude/preise/** ← aktueller Link
+
+Sobald GitHub Pages in diesem Repository aktiviert ist
+(Settings → Pages → Source: „GitHub Actions"), läuft das Tool
+zusätzlich unter der eigenen Adresse:
+**https://chistyakovaanastasia-afk.github.io/japan-preis-finder/**
+
+---
+
 Ein einfaches Online-Tool, um den günstigsten Preis für ein Produkt in
 Japan zu finden. Du gibst einen Namen ein (in beliebiger Sprache), das Tool
 sucht auf **Rakuten**, **Amazon.co.jp** und **Kakaku.com** — auf Wunsch mit

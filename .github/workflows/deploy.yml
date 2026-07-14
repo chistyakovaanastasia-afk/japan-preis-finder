@@ -22,16 +22,33 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      # Solange Pages in den Repo-Einstellungen nicht aktiviert ist
+      # (Settings -> Pages -> Source: GitHub Actions), wird der Deploy
+      # sauber uebersprungen statt rot fehlzuschlagen.
+      - name: Check whether Pages is enabled
+        id: pages_check
+        run: |
+          status=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pages")
+          if [ "$status" = "200" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::GitHub Pages ist noch nicht aktiviert (Settings -> Pages -> Source: GitHub Actions). Deploy uebersprungen."
+          fi
       - name: Checkout
+        if: steps.pages_check.outputs.enabled == 'true'
         uses: actions/checkout@v4
       - name: Setup Pages
+        if: steps.pages_check.outputs.enabled == 'true'
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Upload artifact
+        if: steps.pages_check.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
       - name: Deploy to GitHub Pages
+        if: steps.pages_check.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
