@@ -178,13 +178,24 @@ async function rakutenSearch(appId, accessKey, keyword) {
 
 // ---------- Shop-Suchlinks (immer verfügbar) ----------
 
+// Google-Seitensuche für Melonpanda/Nunibar: Markennamen (z. B. "Meiji")
+// bleiben auf diesen Shops meist lateinisch, nur der allgemeine Produktname
+// wird russisch. Eine reine Übersetzung des ganzen Suchbegriffs verfehlt
+// solche Treffer (Google verlangt implizit alle Wörter). Deshalb Original-
+// UND übersetzte Fassung als Phrasen per OR verknüpfen -> trifft, welche
+// Schreibweise auch immer auf der Seite steht.
+function googleSiteSearch(domain, original, translated) {
+  const query = (translated && translated !== original)
+    ? `"${original}" OR "${translated}"`
+    : `"${original}"`;
+  return `https://www.google.com/search?q=${encodeURIComponent(query)}+site:${domain}`;
+}
+
 // jpTerm: für die japanischen Marktplätze Rakuten/Amazon.co.jp/Kakaku, wo
 // japanische Suchbegriffe die besseren Treffer liefern.
-// ruTerm: für Melonpanda & Nunibar (russischsprachige Re-Seller) -> der ins
-// Russische übersetzte Begriff liefert dort die besseren Treffer.
-function shopSearchUrls(jpTerm, ruTerm) {
+// originalTerm/ruTerm: für Melonpanda & Nunibar (russischsprachige Re-Seller).
+function shopSearchUrls(jpTerm, originalTerm, ruTerm) {
   const q = encodeURIComponent(jpTerm);
-  const qRu = encodeURIComponent(ruTerm);
   return {
     // Rakuten-Suche, s=11 = Preis aufsteigend (günstigstes zuerst)
     rakuten: `https://search.rakuten.co.jp/search/mall/${q}/?s=11`,
@@ -192,9 +203,8 @@ function shopSearchUrls(jpTerm, ruTerm) {
     amazon: `https://www.amazon.co.jp/s?k=${q}&s=price-asc-rank`,
     // Kakaku.com: search.kakaku.com ist die eigentliche Such-Domain
     kakaku: `https://search.kakaku.com/${q}/`,
-    // Melonpanda & Nunibar bieten keine eigene Preissuche -> Google-Seitensuche
-    melonpanda: `https://www.google.com/search?q=${qRu}+site:melonpanda.com`,
-    nunibar: `https://www.google.com/search?q=${qRu}+site:nunibar.com`,
+    melonpanda: googleSiteSearch("melonpanda.com", originalTerm, ruTerm),
+    nunibar: googleSiteSearch("nunibar.com", originalTerm, ruTerm),
   };
 }
 
@@ -220,11 +230,10 @@ async function runSearch(rawTerm) {
   const searchTerms = [term];
   if (jp && jp !== term) searchTerms.push(jp);
 
-  // Für die japanischen Marktplätze den japanischen Begriff bevorzugen,
-  // für Melonpanda/Nunibar den russischen (bessere Treffer als das Original).
+  // Für die japanischen Marktplätze den japanischen Begriff bevorzugen.
+  // Melonpanda/Nunibar bekommen Original UND russische Fassung (per OR).
   const linkTerm = jp || term;
-  const ruLinkTerm = ru || term;
-  const urls = shopSearchUrls(linkTerm, ruLinkTerm);
+  const urls = shopSearchUrls(linkTerm, term, ru);
   els.linkRakuten.href = urls.rakuten;
   els.linkAmazon.href = urls.amazon;
   els.linkKakaku.href = urls.kakaku;
