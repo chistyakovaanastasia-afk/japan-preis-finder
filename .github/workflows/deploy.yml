@@ -40,6 +40,9 @@ jobs:
       - name: Checkout
         if: steps.pages_check.outputs.enabled == 'true'
         uses: actions/checkout@v4
+      - name: Cache-Busting-Version einsetzen
+        if: steps.pages_check.outputs.enabled == 'true'
+        run: sed -i "s/__DEPLOY_SHA__/${GITHUB_SHA}/g" index.html
       - name: Setup Pages
         if: steps.pages_check.outputs.enabled == 'true'
         uses: actions/configure-pages@v5
