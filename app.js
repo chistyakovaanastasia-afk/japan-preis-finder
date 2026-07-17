@@ -5,14 +5,16 @@
  *
  * Ablauf:
  *  1. Nutzer gibt einen Produktnamen in beliebiger Sprache ein.
- *  2. Der Name wird (bei Bedarf) ins Japanische übersetzt -> wir suchen
- *     sowohl mit dem Originalbegriff als auch mit der japanischen Fassung.
+ *  2. Der Name wird (bei Bedarf) ins Japanische UND ins Russische übersetzt
+ *     -> Rakuten sucht mit Original + japanischer Fassung, Melonpanda/
+ *     Nunibar (russischsprachige Re-Seller) mit der russischen Fassung.
  *  3. Rakuten: offizielle Ichiba-API liefert echte Preise. Wir holen über
  *     beide Suchbegriffe Treffer, entfernen Duplikate und zeigen die
  *     günstigsten als Liste (Name inkl. Größe/Menge, Preis in ¥, Kauflink).
  *  4. Amazon.co.jp, Kakaku.com, Melonpanda & Nunibar lassen sich aus dem
  *     Browser nicht auslesen -> ein Tipp öffnet dort die passende, bereits
- *     nach Preis sortierte Suche (bzw. eine Google-Seitensuche).
+ *     nach Preis sortierte Suche (bzw. eine Google-Seitensuche mit dem
+ *     jeweils passenden Suchbegriff).
  */
 
 const $ = (id) => document.getElementById(id);
@@ -61,6 +63,11 @@ function hasJapanese(s) {
   return /[぀-ヿ㐀-鿿ｦ-ﾟ]/.test(s);
 }
 
+// Prüft grob, ob ein Text bereits kyrillische Zeichen enthält.
+function hasCyrillic(s) {
+  return /[Ѐ-ӿ]/.test(s);
+}
+
 // JSONP-Aufruf (umgeht CORS). Gibt ein Promise mit den JSON-Daten zurück.
 function jsonp(baseUrl, params, callbackParam = "callback", timeout = 12000) {
   return new Promise((resolve, reject) => {
@@ -93,19 +100,20 @@ function jsonp(baseUrl, params, callbackParam = "callback", timeout = 12000) {
   });
 }
 
-// Übersetzt einen Begriff ins Japanische (keyless, CORS-offen).
-// Fällt bei Fehler auf den Originalbegriff zurück.
-async function translateToJapanese(text) {
-  if (hasJapanese(text)) return text;
+// Übersetzt einen Begriff über die MyMemory-API (keyless, CORS-offen).
+// hasTargetScript prüft, ob der Text schon in der Zielschrift vorliegt.
+// Fällt bei Fehler/Timeout auf null zurück (Aufrufer nutzt dann den Originalbegriff).
+async function translateViaMyMemory(text, langpair, hasTargetScript) {
+  if (hasTargetScript(text)) return text;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 8000);
   try {
     const url = "https://api.mymemory.translated.net/get?" +
-      new URLSearchParams({ q: text, langpair: "en|ja" }).toString();
+      new URLSearchParams({ q: text, langpair }).toString();
     const res = await fetch(url, { signal: controller.signal });
     const data = await res.json();
     const t = data && data.responseData && data.responseData.translatedText;
-    if (t && hasJapanese(t) && t.toLowerCase() !== text.toLowerCase()) {
+    if (t && hasTargetScript(t) && t.toLowerCase() !== text.toLowerCase()) {
       return t.trim();
     }
   } catch (_) {
@@ -115,6 +123,9 @@ async function translateToJapanese(text) {
   }
   return null; // keine brauchbare Übersetzung
 }
+
+const translateToJapanese = (text) => translateViaMyMemory(text, "en|ja", hasJapanese);
+const translateToRussian = (text) => translateViaMyMemory(text, "en|ru", hasCyrillic);
 
 // ---------- Rakuten API ----------
 
@@ -169,12 +180,11 @@ async function rakutenSearch(appId, accessKey, keyword) {
 
 // jpTerm: für die japanischen Marktplätze Rakuten/Amazon.co.jp/Kakaku, wo
 // japanische Suchbegriffe die besseren Treffer liefern.
-// latinTerm: für Melonpanda & Nunibar (russischsprachige Re-Seller mit
-// lateinisch/kyrillisch beschrifteten Produkten) -> Originalbegriff behalten,
-// eine japanische Übersetzung würde dort ins Leere laufen.
-function shopSearchUrls(jpTerm, latinTerm) {
+// ruTerm: für Melonpanda & Nunibar (russischsprachige Re-Seller) -> der ins
+// Russische übersetzte Begriff liefert dort die besseren Treffer.
+function shopSearchUrls(jpTerm, ruTerm) {
   const q = encodeURIComponent(jpTerm);
-  const qLatin = encodeURIComponent(latinTerm);
+  const qRu = encodeURIComponent(ruTerm);
   return {
     // Rakuten-Suche, s=11 = Preis aufsteigend (günstigstes zuerst)
     rakuten: `https://search.rakuten.co.jp/search/mall/${q}/?s=11`,
@@ -183,8 +193,8 @@ function shopSearchUrls(jpTerm, latinTerm) {
     // Kakaku.com: search.kakaku.com ist die eigentliche Such-Domain
     kakaku: `https://search.kakaku.com/${q}/`,
     // Melonpanda & Nunibar bieten keine eigene Preissuche -> Google-Seitensuche
-    melonpanda: `https://www.google.com/search?q=${qLatin}+site:melonpanda.com`,
-    nunibar: `https://www.google.com/search?q=${qLatin}+site:nunibar.com`,
+    melonpanda: `https://www.google.com/search?q=${qRu}+site:melonpanda.com`,
+    nunibar: `https://www.google.com/search?q=${qRu}+site:nunibar.com`,
   };
 }
 
@@ -201,15 +211,20 @@ async function runSearch(rawTerm) {
   els.terms.classList.add("hidden");
   setStatus("Suche läuft …");
 
-  // Suchbegriffe zusammenstellen: Original + japanische Fassung.
-  const jp = await translateToJapanese(term);
+  // Suchbegriffe zusammenstellen: Original + japanische Fassung (Rakuten-Suche)
+  // sowie parallel die russische Fassung (Melonpanda/Nunibar-Suche).
+  const [jp, ru] = await Promise.all([
+    translateToJapanese(term),
+    translateToRussian(term),
+  ]);
   const searchTerms = [term];
   if (jp && jp !== term) searchTerms.push(jp);
 
-  // Für die japanischen Marktplätze den japanischen Begriff bevorzugen
-  // (bessere Treffer); Melonpanda/Nunibar bekommen den Originalbegriff.
+  // Für die japanischen Marktplätze den japanischen Begriff bevorzugen,
+  // für Melonpanda/Nunibar den russischen (bessere Treffer als das Original).
   const linkTerm = jp || term;
-  const urls = shopSearchUrls(linkTerm, term);
+  const ruLinkTerm = ru || term;
+  const urls = shopSearchUrls(linkTerm, ruLinkTerm);
   els.linkRakuten.href = urls.rakuten;
   els.linkAmazon.href = urls.amazon;
   els.linkKakaku.href = urls.kakaku;

@@ -8,9 +8,9 @@
 
 Ein einfaches Online-Tool, um den günstigsten Preis für ein Produkt in
 Japan zu finden. Du gibst einen Namen ein (in beliebiger Sprache), das Tool
-übersetzt ihn automatisch ins Japanische und sucht auf **Rakuten**,
-**Amazon.co.jp**, **Kakaku.com**, **Melonpanda** und **Nunibar** — und führt
-dich zum günstigsten Angebot.
+übersetzt ihn automatisch ins Japanische (für Rakuten, Amazon.co.jp,
+Kakaku.com) sowie ins Russische (für Melonpanda, Nunibar) und sucht auf
+allen fünf Shops — und führt dich zum günstigsten Angebot.
 
 Es ist eine **statische Web-App ohne Server**: einmal veröffentlicht,
 öffnest du sie per Link auf iPad, iPhone oder jedem Browser.
@@ -22,8 +22,8 @@ Es ist eine **statische Web-App ohne Server**: einmal veröffentlicht,
 | **Rakuten** | Über die offizielle Rakuten-Schnittstelle werden die **günstigsten Treffer automatisch** geholt und als Liste angezeigt (Name inkl. Größe/Menge, Preis in ¥, Shop, Direkt-Kauflink). Benötigt eine kostenlose Rakuten App-ID + Access Key. |
 | **Amazon.co.jp** | Ein Tipp öffnet die Amazon-Suche **nach Preis sortiert (günstigstes zuerst)**. |
 | **Kakaku.com** | Ein Tipp öffnet die Kakaku-Suche (zeigt je Produkt den günstigsten Händlerpreis). |
-| **Melonpanda** | Ein Tipp öffnet eine Google-Seitensuche (`site:melonpanda.com`) für den Produktnamen. |
-| **Nunibar** | Ein Tipp öffnet eine Google-Seitensuche (`site:nunibar.com`) für den Produktnamen. |
+| **Melonpanda** | Ein Tipp öffnet eine Google-Seitensuche (`site:melonpanda.com`) mit dem ins Russische übersetzten Produktnamen (russischsprachiger Shop). |
+| **Nunibar** | Ein Tipp öffnet eine Google-Seitensuche (`site:nunibar.com`) mit dem ins Russische übersetzten Produktnamen (russischsprachiger Shop). |
 
 **Warum nicht alles automatisch?** Nur Rakuten bietet eine offizielle,
 aus dem Browser nutzbare Preis-API. Die anderen Shops blockieren das
@@ -72,5 +72,6 @@ Bei jedem weiteren Push auf `main` aktualisiert GitHub die Seite automatisch.
 
 - Reines HTML/CSS/JavaScript, keine Abhängigkeiten, kein Build-Schritt.
 - Rakuten Ichiba Item Search API (JSONP, umgeht CORS).
-- Übersetzung über die kostenlose MyMemory-API (ohne Schlüssel); schlägt sie
-  fehl, wird einfach mit dem Originalbegriff gesucht.
+- Übersetzung (Japanisch + Russisch) über die kostenlose MyMemory-API (ohne
+  Schlüssel); schlägt eine Übersetzung fehl oder dauert zu lange (Timeout),
+  wird einfach mit dem Originalbegriff gesucht.
