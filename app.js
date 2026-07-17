@@ -167,8 +167,14 @@ async function rakutenSearch(appId, accessKey, keyword) {
 
 // ---------- Shop-Suchlinks (immer verfügbar) ----------
 
-function shopSearchUrls(term) {
-  const q = encodeURIComponent(term);
+// jpTerm: für die japanischen Marktplätze Rakuten/Amazon.co.jp/Kakaku, wo
+// japanische Suchbegriffe die besseren Treffer liefern.
+// latinTerm: für Melonpanda & Nunibar (russischsprachige Re-Seller mit
+// lateinisch/kyrillisch beschrifteten Produkten) -> Originalbegriff behalten,
+// eine japanische Übersetzung würde dort ins Leere laufen.
+function shopSearchUrls(jpTerm, latinTerm) {
+  const q = encodeURIComponent(jpTerm);
+  const qLatin = encodeURIComponent(latinTerm);
   return {
     // Rakuten-Suche, s=11 = Preis aufsteigend (günstigstes zuerst)
     rakuten: `https://search.rakuten.co.jp/search/mall/${q}/?s=11`,
@@ -177,8 +183,8 @@ function shopSearchUrls(term) {
     // Kakaku.com: search.kakaku.com ist die eigentliche Such-Domain
     kakaku: `https://search.kakaku.com/${q}/`,
     // Melonpanda & Nunibar bieten keine eigene Preissuche -> Google-Seitensuche
-    melonpanda: `https://www.google.com/search?q=${q}+site:melonpanda.com`,
-    nunibar: `https://www.google.com/search?q=${q}+site:nunibar.com`,
+    melonpanda: `https://www.google.com/search?q=${qLatin}+site:melonpanda.com`,
+    nunibar: `https://www.google.com/search?q=${qLatin}+site:nunibar.com`,
   };
 }
 
@@ -200,9 +206,10 @@ async function runSearch(rawTerm) {
   const searchTerms = [term];
   if (jp && jp !== term) searchTerms.push(jp);
 
-  // Für die Shop-Links den japanischen Begriff bevorzugen (bessere Treffer).
+  // Für die japanischen Marktplätze den japanischen Begriff bevorzugen
+  // (bessere Treffer); Melonpanda/Nunibar bekommen den Originalbegriff.
   const linkTerm = jp || term;
-  const urls = shopSearchUrls(linkTerm);
+  const urls = shopSearchUrls(linkTerm, term);
   els.linkRakuten.href = urls.rakuten;
   els.linkAmazon.href = urls.amazon;
   els.linkKakaku.href = urls.kakaku;
