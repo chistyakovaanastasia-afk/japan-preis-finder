@@ -8,8 +8,9 @@
 
 Ein einfaches Online-Tool, um den günstigsten Preis für ein Produkt in
 Japan zu finden. Du gibst einen Namen ein (in beliebiger Sprache), das Tool
-sucht auf **Rakuten**, **Amazon.co.jp** und **Kakaku.com** — auf Wunsch mit
-japanischer Übersetzung — und führt dich zum günstigsten Angebot.
+übersetzt ihn automatisch ins Japanische und sucht auf **Rakuten**,
+**Amazon.co.jp**, **Kakaku.com**, **Melonpanda** und **Nunibar** — und führt
+dich zum günstigsten Angebot.
 
 Es ist eine **statische Web-App ohne Server**: einmal veröffentlicht,
 öffnest du sie per Link auf iPad, iPhone oder jedem Browser.
@@ -18,14 +19,17 @@ Es ist eine **statische Web-App ohne Server**: einmal veröffentlicht,
 
 | Shop | Was passiert |
 |------|--------------|
-| **Rakuten** | Über die offizielle Rakuten-Schnittstelle wird der **günstigste Preis automatisch** geholt und mit Direkt-Kauflink angezeigt (¥). Benötigt eine kostenlose Rakuten App-ID. |
+| **Rakuten** | Über die offizielle Rakuten-Schnittstelle werden die **günstigsten Treffer automatisch** geholt und als Liste angezeigt (Name inkl. Größe/Menge, Preis in ¥, Shop, Direkt-Kauflink). Benötigt eine kostenlose Rakuten App-ID + Access Key. |
 | **Amazon.co.jp** | Ein Tipp öffnet die Amazon-Suche **nach Preis sortiert (günstigstes zuerst)**. |
 | **Kakaku.com** | Ein Tipp öffnet die Kakaku-Suche (zeigt je Produkt den günstigsten Händlerpreis). |
+| **Melonpanda** | Ein Tipp öffnet eine Google-Seitensuche (`site:melonpanda.com`) für den Produktnamen. |
+| **Nunibar** | Ein Tipp öffnet eine Google-Seitensuche (`site:nunibar.com`) für den Produktnamen. |
 
-**Warum nicht alles automatisch?** Amazon.co.jp und Kakaku.com blockieren
-das direkte Auslesen aus einem Browser (kein Server). Deshalb bekommst du
-dort mit einem Tipp die bereits nach Preis sortierten Ergebnisse — das ist
-der schnellste zuverlässige Weg zum günstigsten Angebot.
+**Warum nicht alles automatisch?** Nur Rakuten bietet eine offizielle,
+aus dem Browser nutzbare Preis-API. Die anderen Shops blockieren das
+direkte Auslesen (kein Server) oder haben keine eigene Preissuche —
+deshalb bekommst du dort mit einem Tipp die bereits sortierte Suche bzw.
+eine Google-Seitensuche, das ist der schnellste zuverlässige Weg.
 
 ## Rakuten App-ID einrichten (einmalig, kostenlos, ~1 Minute)
 
@@ -45,9 +49,10 @@ an Dritte gesendet. Ohne ID funktionieren die Shop-Links trotzdem.
 
 1. Produktnamen eingeben (z. B. `Sony WH-1000XM5` oder `kabellose Kopfhörer`).
 2. Auf **„Günstigsten Preis finden“** tippen.
-3. Oben erscheint (mit App-ID) der günstigste Rakuten-Treffer mit
-   **„Jetzt kaufen“**-Link. Darunter die Buttons für Amazon.co.jp und
-   Kakaku.com, jeweils nach Preis sortiert.
+3. Oben erscheint (mit App-ID + Access Key) eine Liste der günstigsten
+   Rakuten-Treffer mit **„Jetzt kaufen“**-Link. Darunter die Buttons für
+   Amazon.co.jp, Kakaku.com, Melonpanda und Nunibar, jeweils bereits nach
+   Preis sortiert bzw. als Google-Seitensuche.
 
 ## Online stellen (GitHub Pages)
 

@@ -30,18 +30,10 @@
 
     <div id="status" class="status hidden"></div>
 
-    <!-- Automatischer Rakuten-Bestpreis -->
-    <section id="bestBox" class="bestBox hidden">
-      <div class="bestLabel">Günstigster automatischer Treffer · Rakuten</div>
-      <a id="bestLink" class="bestCard" href="#" target="_blank" rel="noopener">
-        <img id="bestImg" class="bestImg" alt="" />
-        <div class="bestInfo">
-          <div id="bestName" class="bestName"></div>
-          <div id="bestShop" class="bestShop"></div>
-          <div id="bestPrice" class="bestPrice"></div>
-          <span class="bestBuy">Jetzt kaufen ›</span>
-        </div>
-      </a>
+    <!-- Automatische Rakuten-Trefferliste (günstigste zuerst) -->
+    <section id="resultsBox" class="resultsBox hidden">
+      <div class="resultsLabel">Günstigste Treffer · Rakuten</div>
+      <ul id="resultsList" class="resultsList"></ul>
     </section>
 
     <!-- Shop-Direktlinks (günstigstes zuerst) -->
@@ -58,6 +50,14 @@
       <a id="linkKakaku" class="shopBtn kakaku" href="#" target="_blank" rel="noopener">
         <span class="shopName">Kakaku.com</span>
         <span class="shopHint">günstigstes zuerst ›</span>
+      </a>
+      <a id="linkMelonpanda" class="shopBtn melonpanda" href="#" target="_blank" rel="noopener">
+        <span class="shopName">Melonpanda</span>
+        <span class="shopHint">Google-Suche ›</span>
+      </a>
+      <a id="linkNunibar" class="shopBtn nunibar" href="#" target="_blank" rel="noopener">
+        <span class="shopName">Nunibar</span>
+        <span class="shopHint">Google-Suche ›</span>
       </a>
     </section>
   </main>
@@ -77,7 +77,8 @@
         <a href="https://webservice.rakuten.co.jp/app/list" target="_blank" rel="noopener">webservice.rakuten.co.jp</a>
         (Application ID + Access Key). Ohne beide funktionieren die Shop-Links
         unten weiterhin. <strong>Mit</strong> beiden zeigt das Tool oben
-        automatisch den günstigsten Rakuten-Preis + Kauflink an.
+        automatisch die günstigsten Rakuten-Treffer als Liste (inkl.
+        Größe/Menge) + Kauflinks an.
         <br><br>
         🔒 Beide Werte werden <strong>nur in diesem Browser</strong> gespeichert
         (localStorage), nie an Dritte gesendet und nicht im Code abgelegt. Nutze

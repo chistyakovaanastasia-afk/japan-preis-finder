@@ -7,11 +7,12 @@
  *  1. Nutzer gibt einen Produktnamen in beliebiger Sprache ein.
  *  2. Der Name wird (bei Bedarf) ins Japanische übersetzt -> wir suchen
  *     sowohl mit dem Originalbegriff als auch mit der japanischen Fassung.
- *  3. Rakuten: offizielle Ichiba-API (JSONP) liefert echte Preise. Wir
- *     nehmen über beide Suchbegriffe den global günstigsten Treffer und
- *     zeigen Preis (¥), Shop und Direkt-Kauflink.
- *  4. Amazon.co.jp & Kakaku.com lassen sich aus dem Browser nicht auslesen
- *     -> ein Tipp öffnet dort die nach Preis (aufsteigend) sortierte Suche.
+ *  3. Rakuten: offizielle Ichiba-API liefert echte Preise. Wir holen über
+ *     beide Suchbegriffe Treffer, entfernen Duplikate und zeigen die
+ *     günstigsten als Liste (Name inkl. Größe/Menge, Preis in ¥, Kauflink).
+ *  4. Amazon.co.jp, Kakaku.com, Melonpanda & Nunibar lassen sich aus dem
+ *     Browser nicht auslesen -> ein Tipp öffnet dort die passende, bereits
+ *     nach Preis sortierte Suche (bzw. eine Google-Seitensuche).
  */
 
 const $ = (id) => document.getElementById(id);
@@ -22,16 +23,14 @@ const els = {
   searchBtn: $("searchBtn"),
   terms: $("terms"),
   status: $("status"),
-  bestBox: $("bestBox"),
-  bestLink: $("bestLink"),
-  bestImg: $("bestImg"),
-  bestName: $("bestName"),
-  bestShop: $("bestShop"),
-  bestPrice: $("bestPrice"),
+  resultsBox: $("resultsBox"),
+  resultsList: $("resultsList"),
   shopLinks: $("shopLinks"),
   linkRakuten: $("linkRakuten"),
   linkAmazon: $("linkAmazon"),
   linkKakaku: $("linkKakaku"),
+  linkMelonpanda: $("linkMelonpanda"),
+  linkNunibar: $("linkNunibar"),
   settingsBtn: $("settingsBtn"),
   settingsPanel: $("settingsPanel"),
   rakutenId: $("rakutenId"),
@@ -113,7 +112,7 @@ async function translateToJapanese(text) {
 
 // ---------- Rakuten API ----------
 
-async function rakutenCheapest(appId, accessKey, keyword) {
+async function rakutenSearch(appId, accessKey, keyword) {
   // Rakuten-API 2026-04-01 (neue openapi-Adresse). Diese Version verlangt
   // den Access Key als Request-Header, deshalb fetch() statt JSONP. Der Key
   // liegt nur im localStorage des Browsers, nie im Code. Die registrierte
@@ -124,7 +123,7 @@ async function rakutenCheapest(appId, accessKey, keyword) {
       applicationId: appId,
       keyword: keyword,
       sort: "+itemPrice", // aufsteigend nach Preis (günstigstes zuerst)
-      hits: 5,
+      hits: 10,
       format: "json",
       availability: 1,
     }).toString();
@@ -138,16 +137,17 @@ async function rakutenCheapest(appId, accessKey, keyword) {
   const data = await res.json();
   if (data && data.error) throw new Error(data.error_description || data.error);
   const items = (data && data.Items) || [];
-  if (!items.length) return null;
-  const it = items[0].Item;
-  return {
+  return items.map(({ Item: it }) => ({
+    code: it.itemCode,
+    // itemName enthält bei japanischen Angeboten meist Größe/Menge
+    // (z. B. "…500ml" oder "…3個セット") -> unverkürzt anzeigen.
     name: it.itemName,
     price: it.itemPrice,
     shop: it.shopName,
     url: it.itemUrl,
     img: (it.mediumImageUrls && it.mediumImageUrls[0] &&
           it.mediumImageUrls[0].imageUrl) || "",
-  };
+  }));
 }
 
 // ---------- Shop-Suchlinks (immer verfügbar) ----------
@@ -161,6 +161,9 @@ function shopSearchUrls(term) {
     amazon: `https://www.amazon.co.jp/s?k=${q}&s=price-asc-rank`,
     // Kakaku.com: search.kakaku.com ist die eigentliche Such-Domain
     kakaku: `https://search.kakaku.com/${q}/`,
+    // Melonpanda & Nunibar bieten keine eigene Preissuche -> Google-Seitensuche
+    melonpanda: `https://www.google.com/search?q=${q}+site:melonpanda.com`,
+    nunibar: `https://www.google.com/search?q=${q}+site:nunibar.com`,
   };
 }
 
@@ -171,7 +174,8 @@ async function runSearch(rawTerm) {
   if (!term) return;
 
   els.searchBtn.disabled = true;
-  els.bestBox.classList.add("hidden");
+  els.resultsBox.classList.add("hidden");
+  els.resultsList.innerHTML = "";
   els.shopLinks.classList.add("hidden");
   els.terms.classList.add("hidden");
   setStatus("Suche läuft …");
@@ -187,30 +191,32 @@ async function runSearch(rawTerm) {
   els.linkRakuten.href = urls.rakuten;
   els.linkAmazon.href = urls.amazon;
   els.linkKakaku.href = urls.kakaku;
+  els.linkMelonpanda.href = urls.melonpanda;
+  els.linkNunibar.href = urls.nunibar;
   els.shopLinks.classList.remove("hidden");
 
   els.terms.textContent = "Gesucht als: " + searchTerms.join("  ·  ");
   els.terms.classList.remove("hidden");
 
-  // Automatischer Rakuten-Bestpreis (braucht App-ID UND Access Key).
+  // Automatische Rakuten-Trefferliste (braucht App-ID UND Access Key).
   const appId = (localStorage.getItem(LS_RAKUTEN) || "").trim();
   const accessKey = (localStorage.getItem(LS_RAKUTEN_KEY) || "").trim();
   if (!appId || !accessKey) {
     setStatus("Tipp: Trage in den Einstellungen (⚙) deine kostenlose Rakuten " +
       "App-ID UND den Access Key ein, dann zeige ich dir hier automatisch " +
-      "den günstigsten Rakuten-Preis. Die Shop-Links unten funktionieren " +
+      "die günstigsten Rakuten-Treffer. Die Shop-Links unten funktionieren " +
       "schon jetzt.");
     els.searchBtn.disabled = false;
     return;
   }
 
   try {
-    const results = [];
+    const found = [];
     let lastError = null;
     for (const kw of searchTerms) {
       try {
-        const r = await rakutenCheapest(appId, accessKey, kw);
-        if (r) results.push(r);
+        const items = await rakutenSearch(appId, accessKey, kw);
+        found.push(...items);
       } catch (e) {
         lastError = e;
         // Ungültige Zugangsdaten -> sofort abbrechen, sonst weiter versuchen.
@@ -218,7 +224,7 @@ async function runSearch(rawTerm) {
       }
     }
 
-    if (!results.length) {
+    if (!found.length) {
       if (lastError) throw lastError;
       setStatus("Kein Rakuten-Treffer für diesen Namen. " +
         "Sieh über die Shop-Links unten nach.");
@@ -226,8 +232,16 @@ async function runSearch(rawTerm) {
       return;
     }
 
-    results.sort((a, b) => a.price - b.price);
-    showBest(results[0]);
+    // Doppelte Treffer (gleicher Artikel über beide Suchbegriffe) zusammenführen.
+    const byCode = new Map();
+    for (const item of found) {
+      if (!byCode.has(item.code)) byCode.set(item.code, item);
+    }
+    const results = [...byCode.values()]
+      .sort((a, b) => a.price - b.price)
+      .slice(0, 8);
+
+    showResults(results);
     setStatus("");
   } catch (e) {
     const msg = /invalid|parameter|application/i.test(e.message)
@@ -241,14 +255,37 @@ async function runSearch(rawTerm) {
   }
 }
 
-function showBest(item) {
-  els.bestName.textContent = item.name;
-  els.bestShop.textContent = item.shop;
-  els.bestPrice.textContent = yen(item.price);
-  els.bestLink.href = item.url;
-  if (item.img) { els.bestImg.src = item.img; }
-  else { els.bestImg.removeAttribute("src"); }
-  els.bestBox.classList.remove("hidden");
+function showResults(items) {
+  els.resultsList.innerHTML = "";
+  for (const item of items) {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.className = "resultCard";
+    a.href = item.url;
+    a.target = "_blank";
+    a.rel = "noopener";
+
+    const img = document.createElement("img");
+    img.className = "resultImg";
+    img.alt = "";
+    if (item.img) img.src = item.img;
+
+    const info = document.createElement("div");
+    info.className = "resultInfo";
+    info.innerHTML =
+      `<div class="resultName"></div>` +
+      `<div class="resultShop"></div>` +
+      `<div class="resultPrice"></div>` +
+      `<span class="resultBuy">Jetzt kaufen ›</span>`;
+    info.querySelector(".resultName").textContent = item.name;
+    info.querySelector(".resultShop").textContent = item.shop;
+    info.querySelector(".resultPrice").textContent = yen(item.price);
+
+    a.append(img, info);
+    li.appendChild(a);
+    els.resultsList.appendChild(li);
+  }
+  els.resultsBox.classList.remove("hidden");
 }
 
 // ---------- Einstellungen ----------
