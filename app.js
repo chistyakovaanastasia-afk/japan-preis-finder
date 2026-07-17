@@ -97,16 +97,22 @@ function jsonp(baseUrl, params, callbackParam = "callback", timeout = 12000) {
 // Fällt bei Fehler auf den Originalbegriff zurück.
 async function translateToJapanese(text) {
   if (hasJapanese(text)) return text;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
   try {
     const url = "https://api.mymemory.translated.net/get?" +
       new URLSearchParams({ q: text, langpair: "en|ja" }).toString();
-    const res = await fetch(url);
+    const res = await fetch(url, { signal: controller.signal });
     const data = await res.json();
     const t = data && data.responseData && data.responseData.translatedText;
     if (t && hasJapanese(t) && t.toLowerCase() !== text.toLowerCase()) {
       return t.trim();
     }
-  } catch (_) { /* ignorieren */ }
+  } catch (_) {
+    // Timeout, Netzwerkfehler oder blockierte Anfrage -> auf Originalbegriff zurückfallen.
+  } finally {
+    clearTimeout(timer);
+  }
   return null; // keine brauchbare Übersetzung
 }
 
@@ -128,7 +134,16 @@ async function rakutenSearch(appId, accessKey, keyword) {
       availability: 1,
     }).toString();
 
-  const res = await fetch(url, { headers: { accessKey: accessKey } });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
+  let res;
+  try {
+    res = await fetch(url, { headers: { accessKey: accessKey }, signal: controller.signal });
+  } catch (e) {
+    throw new Error(e.name === "AbortError" ? "Zeitüberschreitung" : "Netzwerkfehler");
+  } finally {
+    clearTimeout(timer);
+  }
   if (!res.ok) {
     // 401/403 = Anmeldung; alles andere = Server/Netz.
     throw new Error(res.status === 401 || res.status === 403
