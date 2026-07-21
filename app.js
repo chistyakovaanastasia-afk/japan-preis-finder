@@ -125,7 +125,20 @@ async function translateViaMyMemory(text, langpair, hasTargetScript) {
 }
 
 const translateToJapanese = (text) => translateViaMyMemory(text, "en|ja", hasJapanese);
-const translateToRussian = (text) => translateViaMyMemory(text, "en|ru", hasCyrillic);
+
+// Wortweise statt als ganze Phrase übersetzen: MyMemory übersetzt einzelne
+// Markennamen wie "meiji" unverändert ("Meiji"), transliteriert sie aber,
+// sobald sie Teil einer mehrteiligen Phrase sind (z. B. "meiji collagen"
+// -> "коллаген мэйдзи"). Wortweise Übersetzung vermeidet das und liefert
+// z. B. "meiji коллаген" statt der verfälschten Phrasenübersetzung.
+async function translateToRussian(text) {
+  const words = text.split(/\s+/).filter(Boolean);
+  const translated = await Promise.all(
+    words.map((w) => translateViaMyMemory(w, "en|ru", hasCyrillic))
+  );
+  const result = words.map((w, i) => translated[i] || w).join(" ");
+  return result !== text ? result : null;
+}
 
 // ---------- Rakuten API ----------
 
