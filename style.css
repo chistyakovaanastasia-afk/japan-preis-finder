@@ -314,9 +314,10 @@ h1 { font-size: 1.35rem; margin: 0; }
   font-size: .92rem;
   font-weight: 600;
   line-height: 1.25;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
-.cardNote { color: var(--muted); font-size: .8rem; margin-top: 3px; overflow-wrap: anywhere; }
+.cardNote { color: var(--muted); font-size: .8rem; margin-top: 3px; overflow-wrap: break-word; }
 
 /* Abhak-Knopf oben rechts auf der Kachel */
 .checkBtn {
@@ -412,3 +413,141 @@ h1 { font-size: 1.35rem; margin: 0; }
 .sheetButtons { margin-top: 10px; }
 .settingsButtons .danger { color: #ffb4b4; border-color: #5a2b2b; }
 .headerBtns { display: flex; gap: 10px; }
+
+/* Erfassung: Was/wofür + Für wen nebeneinander */
+.addMeta { display: flex; gap: 10px; }
+.addMeta input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 14px;
+  font-size: .95rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+}
+.addMeta input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+
+.listControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 14px 0 10px;
+}
+.listControls .counts { margin: 0; }
+.viewToggle { flex: 0 0 auto; min-width: 0; padding: 9px 14px; font-size: .85rem; }
+
+/* Filter nach Person */
+.filterRow {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.filterChip {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--text);
+  font-size: .85rem;
+  cursor: pointer;
+}
+.filterChip.active {
+  background: var(--accent);
+  border-color: var(--accent2);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Zwei Spalten auf der Kachel: Was/wofür · Für wen */
+.meta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.metaWhat {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+.metaWho {
+  justify-self: end;
+  font-size: .75rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--panel2);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.metaEmpty { color: #5c6b7c; }
+
+/* Tabellenansicht */
+.rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.rowCard { border-radius: 14px; }
+.rowMain {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1.15fr) minmax(0, 1.05fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 50px 10px 10px;
+  background: none;
+  border: none;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.rowImgWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rowImgWrap .cardPlaceholder { font-size: 1.3rem; }
+.rowText { min-width: 0; }
+.rowText .cardName { font-size: .87rem; }
+.rowWhat { font-size: .78rem; color: var(--muted); line-height: 1.25; overflow-wrap: break-word; hyphens: auto; }
+.rowWho { justify-self: end; }
+.rowCard .checkBtn { top: 50%; transform: translateY(-50%); width: 34px; height: 34px; }
+.rowCard.isBought .rowMain { opacity: .4; filter: grayscale(1); }
+.rowCard.isBought .cardName { text-decoration: line-through; }
+
+@media (max-width: 400px) {
+  .rowMain { grid-template-columns: 48px minmax(0, 1fr); row-gap: 6px; }
+  .rowImgWrap { width: 48px; height: 48px; }
+  .rowWhat, .rowWho { grid-column: 2; justify-self: start; }
+}
+
+/* Spaltenüberschriften der Tabellenansicht */
+.rowHead {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1.15fr) minmax(0, 1.05fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 50px 8px 10px;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--muted);
+}
+.rowHead .headWho { justify-self: end; }
+@media (max-width: 400px) {
+  .rowHead { display: none; }
+}

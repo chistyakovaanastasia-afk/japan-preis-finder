@@ -89,6 +89,9 @@ Name als Kachelraster.
 | **Hinzufügen** | Produktnamen eintippen → Kachel erscheint sofort, das Bild wird im Hintergrund gesucht. |
 | **Bild automatisch** | Reihenfolge: Rakuten-API (echtes Japan-Produktfoto, braucht App-ID + Access Key aus dem Preis-Finder) → Open Food Facts → dessen Spiegel `world.openfoodfacts.net` → Open Beauty Facts. Findet der volle Name nichts, wird zusätzlich nur mit Marke + Produkt (erste zwei Wörter) gesucht. |
 | **Bild manuell** | In der Detailansicht: eigenes Foto hochladen (wird auf 700 px verkleinert) oder Bild-Adresse einfügen. Ohne Bild zeigt die Kachel den Anfangsbuchstaben. |
+| **Zwei Spalten** | Jedes Produkt hat **„Was / wofür“** (z. B. „Creme · Gesicht“, „Nahrungsergänzung · Abnehmen“) und **„Für wen“** (Ich, Mami, Papi, Großmutter …). Beide Felder gibt es direkt im Erfassungsformular (mit Vorschlagsliste) und in der Detailansicht. |
+| **Ansicht** | Umschalter oben rechts: **Kacheln** (Bild groß, darunter die zwei Spalten) oder **Tabelle** (Bild · Produkt · Was/wofür · Für wen als Zeilen mit Spaltenüberschriften). |
+| **Filter** | Farbige Chips je Person (Farbe wird aus dem Namen abgeleitet): antippen = nur deren Produkte, nochmal antippen = alle. |
 | **Abhaken** | ✓ auf der Kachel → sie wird blass/graustufig, durchgestrichen und wandert in den zugeklappten Bereich **„Erledigt (n)“**. |
 | **Wieder aktivieren** | Bereich „Erledigt“ aufklappen → ✓ erneut tippen (oder in der Detailansicht „Zurück auf ‚geplant‘“). Nichts geht verloren. |
 | **Detailansicht** | Kachel antippen: Name, Notiz (Größe/Menge/Variante), Bild ändern, „Preise suchen“ (öffnet den Preis-Finder mit diesem Namen), löschen. |
@@ -98,6 +101,6 @@ Die Liste liegt im **localStorage** des Browsers — kein Server, kein Konto.
 Sie bleibt geräte- und browsergebunden, deshalb die Sicherungs-Funktion.
 
 **Feste Vorschläge:** In `wunschliste.js` gibt es oben die Konstante `SEED`.
-Produkte, die dort eingetragen sind (`{ id: "seed-…", name, note, img }`),
+Produkte, die dort eingetragen sind (`{ id: "seed-…", name, what, who, note, img }`),
 erscheinen automatisch auf jedem Gerät, das die Seite öffnet. Einmal gelöschte
 Vorschläge kommen nicht zurück, abgehakte behalten ihren Status.

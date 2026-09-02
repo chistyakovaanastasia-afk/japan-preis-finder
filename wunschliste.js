@@ -30,8 +30,13 @@ const SEED = [];
 const els = {
   addForm: $("addForm"),
   addName: $("addName"),
+  addWhat: $("addWhat"),
+  addWho: $("addWho"),
   addBtn: $("addBtn"),
   counts: $("counts"),
+  viewToggle: $("viewToggle"),
+  filterRow: $("filterRow"),
+  rowHead: $("rowHead"),
   openGrid: $("openGrid"),
   emptyHint: $("emptyHint"),
   boughtSection: $("boughtSection"),
@@ -47,6 +52,8 @@ const els = {
   sheetTitle: $("sheetTitle"),
   sheetState: $("sheetState"),
   sheetName: $("sheetName"),
+  sheetWhat: $("sheetWhat"),
+  sheetWho: $("sheetWho"),
   sheetNote: $("sheetNote"),
   sheetImgUrl: $("sheetImgUrl"),
   autoImgBtn: $("autoImgBtn"),
@@ -62,7 +69,16 @@ const els = {
 
 // ---------- Datenhaltung ----------
 
-let state = { items: [], removedSeeds: [], boughtOpen: false };
+// Interner Wert für den Filter "Ohne Zuordnung" (kann kein echter Name sein).
+const NO_PERSON = "\u0000ohne";
+
+let state = {
+  items: [],
+  removedSeeds: [],
+  boughtOpen: false,
+  view: "grid",   // "grid" = Kacheln, "list" = Tabelle
+  filter: "",     // "" = alle, sonst Person bzw. NO_PERSON
+};
 let openId = null; // gerade in der Detailansicht geöffnetes Produkt
 
 function load() {
@@ -73,6 +89,13 @@ function load() {
       state.items = Array.isArray(data.items) ? data.items : [];
       state.removedSeeds = Array.isArray(data.removedSeeds) ? data.removedSeeds : [];
       state.boughtOpen = !!data.boughtOpen;
+      state.view = data.view === "list" ? "list" : "grid";
+      state.filter = typeof data.filter === "string" ? data.filter : "";
+      // Ältere Einträge kennen "what"/"who" noch nicht.
+      for (const it of state.items) {
+        if (typeof it.what !== "string") it.what = "";
+        if (typeof it.who !== "string") it.who = "";
+      }
     }
   } catch (_) {
     // Beschädigter Speicher -> mit leerer Liste weiterarbeiten statt abstürzen.
@@ -89,6 +112,8 @@ function mergeSeed() {
     state.items.push({
       id: s.id,
       name: s.name,
+      what: s.what || "",
+      who: s.who || "",
       note: s.note || "",
       img: s.img || "",
       bought: false,
@@ -230,20 +255,50 @@ function fileToCompressedDataUrl(file, maxSide = 700, quality = 0.72) {
 
 // ---------- Darstellung ----------
 
+// Farbe je Person, damit man beim Überfliegen sofort sieht, für wen etwas ist.
+function personHue(name) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 360;
+  return h;
+}
+
+function applyPersonColor(el, who) {
+  if (!who) return;
+  const hue = personHue(who.toLowerCase());
+  el.style.background = `hsl(${hue} 45% 22%)`;
+  el.style.color = `hsl(${hue} 70% 82%)`;
+}
+
+const matchesFilter = (item) => {
+  if (!state.filter) return true;
+  if (state.filter === NO_PERSON) return !item.who;
+  return (item.who || "") === state.filter;
+};
+
 function render() {
-  const open = state.items.filter((i) => !i.bought);
-  const bought = state.items.filter((i) => i.bought);
+  const shown = state.items.filter(matchesFilter);
+  const open = shown.filter((i) => !i.bought);
+  const bought = shown.filter((i) => i.bought);
 
   // Neueste zuerst; erledigte nach Kaufdatum.
   open.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
   bought.sort((a, b) => (b.boughtAt || 0) - (a.boughtAt || 0));
 
-  els.openGrid.replaceChildren(...open.map(card));
-  els.boughtGrid.replaceChildren(...bought.map(card));
+  const listView = state.view === "list";
+  for (const ul of [els.openGrid, els.boughtGrid]) {
+    ul.classList.toggle("grid", !listView);
+    ul.classList.toggle("rows", listView);
+  }
+  els.viewToggle.textContent = listView ? "▦ Kacheln" : "☰ Tabelle";
+  els.rowHead.classList.toggle("hidden", !listView || open.length === 0);
 
-  els.emptyHint.classList.toggle("hidden", open.length > 0 || bought.length > 0);
+  els.openGrid.replaceChildren(...open.map(listView ? row : card));
+  els.boughtGrid.replaceChildren(...bought.map(listView ? row : card));
+
+  els.emptyHint.classList.toggle("hidden", state.items.length > 0);
   els.counts.textContent = state.items.length
-    ? `${open.length} geplant · ${bought.length} erledigt`
+    ? `${open.length} geplant · ${bought.length} erledigt` +
+      (state.filter ? ` · Filter: ${state.filter}` : "")
     : "";
 
   els.boughtSection.classList.toggle("hidden", bought.length === 0);
@@ -251,19 +306,77 @@ function render() {
   els.boughtGrid.classList.toggle("hidden", !state.boughtOpen);
   els.boughtToggle.setAttribute("aria-expanded", String(state.boughtOpen));
   els.boughtChevron.classList.toggle("open", state.boughtOpen);
+
+  renderFilters();
 }
 
-function card(item) {
-  const li = document.createElement("li");
-  li.className = "card" + (item.bought ? " isBought" : "");
+// Filterleiste: „Alle“ + jede vergebene Person (+ „Ohne Zuordnung“).
+function renderFilters() {
+  const people = [...new Set(state.items.map((i) => i.who).filter(Boolean))].sort();
+  const hasUnassigned = state.items.some((i) => !i.who);
+  els.filterRow.classList.toggle("hidden", people.length < 2 && !state.filter);
+  if (els.filterRow.classList.contains("hidden")) {
+    els.filterRow.replaceChildren();
+    return;
+  }
 
-  const openBtn = document.createElement("button");
-  openBtn.type = "button";
-  openBtn.className = "cardMain";
-  openBtn.addEventListener("click", () => openSheet(item.id));
+  const chips = [{ label: "Alle", value: "" }];
+  for (const p of people) chips.push({ label: p, value: p });
+  if (hasUnassigned) chips.push({ label: "Ohne Zuordnung", value: NO_PERSON });
 
+  els.filterRow.replaceChildren(...chips.map(({ label, value }) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "filterChip" + (state.filter === value ? " active" : "");
+    b.textContent = label;
+    if (value && value !== NO_PERSON && state.filter !== value) applyPersonColor(b, value);
+    b.addEventListener("click", () => {
+      state.filter = state.filter === value ? "" : value;
+      save();
+      render();
+    });
+    return b;
+  }));
+}
+
+// Die beiden Spalten „Was / wofür“ und „Für wen“.
+function metaCells(item) {
+  const wrap = document.createElement("div");
+  wrap.className = "meta";
+
+  const what = document.createElement("span");
+  what.className = "metaWhat";
+  what.textContent = item.what || "—";
+  if (!item.what) what.classList.add("metaEmpty");
+
+  const who = document.createElement("span");
+  who.className = "metaWho";
+  who.textContent = item.who || "—";
+  if (item.who) applyPersonColor(who, item.who);
+  else who.classList.add("metaEmpty");
+
+  wrap.append(what, who);
+  return wrap;
+}
+
+function checkButton(item) {
+  const check = document.createElement("button");
+  check.type = "button";
+  check.className = "checkBtn";
+  check.textContent = "✓";
+  check.title = item.bought ? "Wieder aktivieren" : "Als gekauft abhaken";
+  check.setAttribute("aria-label", check.title);
+  check.setAttribute("aria-pressed", String(!!item.bought));
+  check.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleBought(item.id);
+  });
+  return check;
+}
+
+function imageFor(item, className) {
   const figure = document.createElement("div");
-  figure.className = "cardImgWrap";
+  figure.className = className;
   if (item.img) {
     const img = document.createElement("img");
     img.className = "cardImg";
@@ -279,7 +392,10 @@ function card(item) {
   } else {
     figure.appendChild(placeholder(item.name));
   }
+  return figure;
+}
 
+function nameBlock(item) {
   const text = document.createElement("div");
   text.className = "cardText";
   const name = document.createElement("div");
@@ -292,22 +408,63 @@ function card(item) {
     note.textContent = item.note;
     text.appendChild(note);
   }
+  text.appendChild(metaCells(item));
+  return text;
+}
 
-  openBtn.append(figure, text);
+// Kachelansicht
+function card(item) {
+  const li = document.createElement("li");
+  li.className = "card" + (item.bought ? " isBought" : "");
 
-  const check = document.createElement("button");
-  check.type = "button";
-  check.className = "checkBtn";
-  check.textContent = "✓";
-  check.title = item.bought ? "Wieder aktivieren" : "Als gekauft abhaken";
-  check.setAttribute("aria-label", check.title);
-  check.setAttribute("aria-pressed", String(!!item.bought));
-  check.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleBought(item.id);
-  });
+  const openBtn = document.createElement("button");
+  openBtn.type = "button";
+  openBtn.className = "cardMain";
+  openBtn.addEventListener("click", () => openSheet(item.id));
+  openBtn.append(imageFor(item, "cardImgWrap"), nameBlock(item));
 
-  li.append(openBtn, check);
+  li.append(openBtn, checkButton(item));
+  return li;
+}
+
+// Tabellenansicht: Bild · Name · Was/wofür · Für wen
+function row(item) {
+  const li = document.createElement("li");
+  li.className = "card rowCard" + (item.bought ? " isBought" : "");
+
+  const openBtn = document.createElement("button");
+  openBtn.type = "button";
+  openBtn.className = "rowMain";
+  openBtn.addEventListener("click", () => openSheet(item.id));
+
+  const text = document.createElement("div");
+  text.className = "rowText";
+  const name = document.createElement("div");
+  name.className = "cardName";
+  name.textContent = item.name;
+  text.appendChild(name);
+  if (item.note) {
+    const note = document.createElement("div");
+    note.className = "cardNote";
+    note.textContent = item.note;
+    text.appendChild(note);
+  }
+
+  const what = document.createElement("div");
+  what.className = "rowWhat" + (item.what ? "" : " metaEmpty");
+  what.textContent = item.what || "—";
+
+  const who = document.createElement("div");
+  who.className = "rowWho";
+  const whoChip = document.createElement("span");
+  whoChip.className = "metaWho";
+  whoChip.textContent = item.who || "—";
+  if (item.who) applyPersonColor(whoChip, item.who);
+  else whoChip.classList.add("metaEmpty");
+  who.appendChild(whoChip);
+
+  openBtn.append(imageFor(item, "rowImgWrap"), text, what, who);
+  li.append(openBtn, checkButton(item));
   return li;
 }
 
@@ -324,11 +481,22 @@ async function addItem(rawName) {
   const name = rawName.trim();
   if (!name) return;
 
-  const item = { id: newId(), name, note: "", img: "", bought: false, createdAt: Date.now() };
+  const item = {
+    id: newId(),
+    name,
+    what: els.addWhat.value.trim(),
+    who: els.addWho.value.trim(),
+    note: "",
+    img: "",
+    bought: false,
+    createdAt: Date.now(),
+  };
   state.items.push(item);
   save();
   render();
   els.addName.value = "";
+  // "Was/wofür" und "Für wen" stehen lassen: beim Erfassen mehrerer Produkte
+  // für dieselbe Person spart das jedes Mal zwei Eingaben.
 
   // Bildsuche läuft im Hintergrund, die Karte ist sofort da.
   els.addBtn.textContent = "🔎 Bild wird gesucht …";
@@ -384,9 +552,14 @@ function openSheet(id) {
 
 function fillSheet(item) {
   els.sheetTitle.textContent = item.name;
-  els.sheetState.textContent = item.bought ? "erledigt" : "geplant";
+  const parts = [item.bought ? "erledigt" : "geplant"];
+  if (item.what) parts.push(item.what);
+  if (item.who) parts.push("für " + item.who);
+  els.sheetState.textContent = parts.join(" · ");
   els.sheetState.classList.toggle("done", !!item.bought);
   els.sheetName.value = item.name;
+  els.sheetWhat.value = item.what || "";
+  els.sheetWho.value = item.who || "";
   els.sheetNote.value = item.note || "";
   els.sheetImgUrl.value = item.img && !item.img.startsWith("data:") ? item.img : "";
   if (item.img) {
@@ -407,6 +580,8 @@ function saveSheet() {
   if (!item) return closeSheet();
   const name = els.sheetName.value.trim();
   if (name) item.name = name;
+  item.what = els.sheetWhat.value.trim();
+  item.who = els.sheetWho.value.trim();
   item.note = els.sheetNote.value.trim();
   const url = els.sheetImgUrl.value.trim();
   // Leeres URL-Feld löscht ein hochgeladenes Foto nicht (das steht als
@@ -510,6 +685,12 @@ els.addForm.addEventListener("submit", (e) => {
   e.preventDefault();
   els.addName.blur();
   addItem(els.addName.value);
+});
+
+els.viewToggle.addEventListener("click", () => {
+  state.view = state.view === "list" ? "grid" : "list";
+  save();
+  render();
 });
 
 els.boughtToggle.addEventListener("click", () => {

@@ -21,12 +21,57 @@
   <form id="addForm" class="addForm" autocomplete="off">
     <input id="addName" type="text" placeholder="Produkt hinzufügen (z. B. Meiji Collagen Powder)"
            aria-label="Produktname" />
+    <div class="addMeta">
+      <input id="addWhat" type="text" list="whatList" placeholder="Was / wofür?"
+             aria-label="Was ist es und wofür" />
+      <input id="addWho" type="text" list="whoList" placeholder="Für wen?"
+             aria-label="Für wen" />
+    </div>
     <button id="addBtn" type="submit">+ Auf die Liste</button>
   </form>
 
-  <p id="counts" class="counts"></p>
+  <datalist id="whatList">
+    <option value="Creme · Gesicht"></option>
+    <option value="Creme · Körper"></option>
+    <option value="Serum · Gesicht"></option>
+    <option value="Reinigung · Gesicht"></option>
+    <option value="Sonnenschutz"></option>
+    <option value="Shampoo · Haare"></option>
+    <option value="Haarkur · Haare"></option>
+    <option value="Make-up"></option>
+    <option value="Nahrungsergänzung · Kollagen"></option>
+    <option value="Nahrungsergänzung · Vitamine"></option>
+    <option value="Nahrungsergänzung · Abnehmen"></option>
+    <option value="Medizin · Apotheke"></option>
+    <option value="Zähne"></option>
+    <option value="Snack · Süßigkeit"></option>
+    <option value="Tee · Getränk"></option>
+    <option value="Haushalt · Küche"></option>
+    <option value="Technik"></option>
+    <option value="Souvenir · Geschenk"></option>
+  </datalist>
+  <datalist id="whoList">
+    <option value="Ich"></option>
+    <option value="Mami"></option>
+    <option value="Papi"></option>
+    <option value="Großmutter"></option>
+    <option value="Geschenk"></option>
+  </datalist>
+
+  <div class="listControls">
+    <p id="counts" class="counts"></p>
+    <button id="viewToggle" type="button" class="toolBtn viewToggle">☰ Tabelle</button>
+  </div>
+
+  <div id="filterRow" class="filterRow hidden"></div>
 
   <section id="openSection">
+    <div id="rowHead" class="rowHead hidden" aria-hidden="true">
+      <span></span>
+      <span>Produkt</span>
+      <span>Was / wofür</span>
+      <span class="headWho">Für wen</span>
+    </div>
     <ul id="openGrid" class="grid"></ul>
     <p id="emptyHint" class="emptyHint hidden">
       Noch nichts auf der Liste. Schreib oben einen Produktnamen rein —
@@ -67,6 +112,14 @@
 
       <label class="fieldLabel" for="sheetName">Name</label>
       <input id="sheetName" class="textField" type="text" autocapitalize="sentences">
+
+      <label class="fieldLabel" for="sheetWhat">Was ist es / wofür?</label>
+      <input id="sheetWhat" class="textField" type="text" list="whatList"
+             placeholder="z. B. Creme · Gesicht" autocapitalize="sentences">
+
+      <label class="fieldLabel" for="sheetWho">Für wen?</label>
+      <input id="sheetWho" class="textField" type="text" list="whoList"
+             placeholder="z. B. Mami" autocapitalize="sentences">
 
       <label class="fieldLabel" for="sheetNote">Notiz (Größe, Menge, Variante …)</label>
       <input id="sheetNote" class="textField" type="text" autocapitalize="sentences">
