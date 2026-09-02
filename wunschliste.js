@@ -107,6 +107,86 @@ const SEED = [
           "(ニールワン), Quasi-Arzneimittel gegen Falten · POLA, 14.850 ¥",
     img: "https://www.pola.co.jp/online-store/images/products/g-0850/0850.jpg",
   },
+  {
+    id: "seed-decorte-liposome-eye-serum",
+    name: "DECORTÉ Liposome Advanced Repair Eye Serum",
+    what: "Serum · Augenpartie · Falten",
+    who: "Mami",
+    note: "20 ml · mehrschichtige Bio-Liposomen für die Augenpartie · " +
+          "offiziell 8.800 ¥, bei japonabeauty 12.500 ¥",
+    img: "https://japonabeauty.com/wp-content/uploads/2026/01/" +
+         "u259zsf41rropmt0qdhf8pb4mb56mhyp.png",
+  },
+  {
+    id: "seed-dr-slim-scientist",
+    name: "ALEN Dr.SLIM Scientist",
+    what: "Nahrungsergänzung · Abnehmen & Stoffwechsel",
+    who: "Ich",
+    note: "180 Kapseln, 6 täglich = 30 Tage · Granatapfel-, Salacia-, " +
+          "Black-Ginger- und weiße-Bohnen-Extrakt · Alen International · " +
+          "9.600 ¥ bei japonabeauty",
+    img: "https://japonabeauty.com/wp-content/uploads/2026/06/img_9148.webp",
+  },
+  {
+    id: "seed-enzym-omega3-shark",
+    name: "ENZYM SUPER MIX Omega III + Shark Liver Oil",
+    what: "Nahrungsergänzung · Herz & Immunsystem",
+    who: "Familie",
+    note: "90 Kapseln · pro 4 Kapseln DHA 366 mg und EPA 126 mg, dazu " +
+          "Haifischleberöl und Astaxanthin · Enzym Corporation · " +
+          "9.500 ¥ bei japonabeauty",
+    img: "https://japonabeauty.com/wp-content/uploads/2026/08/img_1159.jpeg",
+  },
+  {
+    id: "seed-predia-fango-sebum-clear",
+    name: "KOSÉ Predia Spa et Mer Fango Sebum Clear Pack",
+    what: "Maske · Gesicht · Poren & Talg",
+    who: "Ich",
+    note: "60 g · natürliche Mineralschlamm-Maske zur Porenreinigung · " +
+          "5.100 ¥ bei japonabeauty",
+    img: "https://japonabeauty.com/wp-content/uploads/2026/02/" +
+         "23c8c54ab3e1b19b9227e4fc8e6ce53a.png",
+  },
+  {
+    id: "seed-aid-004-shilajit",
+    name: "+AID 004 Shilajit",
+    what: "Nahrungsergänzung · Schwellungen im Gesicht",
+    who: "Mami & Ich",
+    note: "Komplex auf Basis von Mumijo (Shilajit) · laut Shop gegen " +
+          "Gesichtsschwellungen, unterstützt außerdem den Blutzucker · " +
+          "9.600 ¥ bei japonabeauty",
+    img: "https://japonabeauty.com/wp-content/uploads/2026/05/img_1153.jpeg",
+  },
+  {
+    id: "seed-dr-nemuri-scientist",
+    name: "ALEN Dr.NEMURI Scientist",
+    what: "Nahrungsergänzung · Schlaf & Regeneration",
+    who: "Ich",
+    note: "Funktionelles Supplement für Schlafqualität, kognitive Funktion " +
+          "und Stressadaption · Alen International · 9.800 ¥ bei japonabeauty",
+    img: "https://japonabeauty.com/wp-content/uploads/2026/05/img_7645.jpeg",
+  },
+  {
+    id: "seed-reality-hien-birdnest-white",
+    name: "reality [s]collection 飛燕 – Schwalbennest weiß",
+    what: "Nahrungsergänzung · Gelenke",
+    who: "Ich",
+    note: "180 Kapseln, 1 täglich = 2 Monate · weiße Dose = Gelenke " +
+          "(schwarze Dose = Haut) · Made in Japan · 18.660 ¥ bei japonabeauty",
+    img: "https://japonabeauty.com/wp-content/uploads/2026/05/" +
+         "c66e5110-e0a4-4a5e-8eff-3930e263de36.jpeg",
+  },
+  {
+    id: "seed-kao-pureora-carbonated",
+    name: "KAO PureOra Carbonated Toothpaste",
+    what: "Zahnpasta · Zahnfleisch & Parodontitis",
+    who: "Ich",
+    note: "95 g · ピュオーラ 炭酸洗浄ハミガキ, medizinische Zahnpasta mit " +
+          "Kohlensäure-Rezeptur und Fluorid, Geschmack Crystal Soda · " +
+          "KAO · bei Nunibar",
+    img: "https://nunibar.com/media/catalog/product/cache/" +
+         "dd4850ad4231b6306bceadf38a0bbeed/8/1/81ztc-6zb3l._ac_sl1500_.jpg",
+  },
 ];
 
 const els = {
