@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0b0f14">
+<title>Japan Wunschliste</title>
+<link rel="stylesheet" href="style.css?v=__DEPLOY_SHA__">
+</head>
+<body>
+<div id="app">
+
+  <header>
+    <h1>🎌 Japan Wunschliste</h1>
+    <a class="iconBtn linkBtn" href="index.html" aria-label="Zum Preis-Finder" title="Preis-Finder">🛒</a>
+  </header>
+
+  <form id="addForm" class="addForm" autocomplete="off">
+    <input id="addName" type="text" placeholder="Produkt hinzufügen (z. B. Meiji Collagen Powder)"
+           aria-label="Produktname" />
+    <button id="addBtn" type="submit">+ Auf die Liste</button>
+  </form>
+
+  <p id="counts" class="counts"></p>
+
+  <section id="openSection">
+    <ul id="openGrid" class="grid"></ul>
+    <p id="emptyHint" class="emptyHint hidden">
+      Noch nichts auf der Liste. Schreib oben einen Produktnamen rein —
+      das Bild wird automatisch gesucht (Rakuten / Open Food Facts /
+      Open Beauty Facts). Passt es nicht, kannst du in der Detailansicht
+      ein eigenes Foto hochladen oder eine Bild-Adresse einfügen.
+    </p>
+  </section>
+
+  <section id="boughtSection" class="boughtSection hidden">
+    <button id="boughtToggle" type="button" class="boughtToggle" aria-expanded="false">
+      <span id="boughtLabel">✓ Erledigt</span>
+      <span id="boughtChevron" class="chevron">›</span>
+    </button>
+    <ul id="boughtGrid" class="grid bought hidden"></ul>
+  </section>
+
+  <div class="toolRow">
+    <button id="exportBtn" type="button" class="toolBtn">⬇ Sicherung speichern</button>
+    <button id="importBtn" type="button" class="toolBtn">⬆ Sicherung laden</button>
+    <input id="importFile" type="file" accept="application/json,.json" class="hidden">
+  </div>
+  <p class="toolHint">
+    Die Liste liegt nur in diesem Browser (localStorage). Für ein anderes
+    Gerät: Sicherung speichern → Datei dort laden.
+  </p>
+
+  <!-- Detailansicht / Bearbeiten -->
+  <div id="sheet" class="settingsPanel hidden">
+    <div class="settingsInner sheetInner">
+      <div class="sheetHead">
+        <img id="sheetImg" class="sheetImg" alt="">
+        <div class="sheetHeadText">
+          <h2 id="sheetTitle">Produkt</h2>
+          <span id="sheetState" class="sheetState"></span>
+        </div>
+      </div>
+
+      <label class="fieldLabel" for="sheetName">Name</label>
+      <input id="sheetName" class="textField" type="text" autocapitalize="sentences">
+
+      <label class="fieldLabel" for="sheetNote">Notiz (Größe, Menge, Variante …)</label>
+      <input id="sheetNote" class="textField" type="text" autocapitalize="sentences">
+
+      <label class="fieldLabel" for="sheetImgUrl">Bild-Adresse (URL)</label>
+      <input id="sheetImgUrl" class="textField" type="url" inputmode="url"
+             spellcheck="false" placeholder="https://…">
+
+      <div class="sheetImgRow">
+        <button id="autoImgBtn" type="button" class="toolBtn">🔎 Bild automatisch suchen</button>
+        <button id="uploadImgBtn" type="button" class="toolBtn">📷 Eigenes Foto</button>
+        <input id="uploadImgFile" type="file" accept="image/*" class="hidden">
+      </div>
+      <p id="sheetImgStatus" class="hint sheetImgStatus"></p>
+
+      <a id="sheetFind" class="shopBtn rakuten sheetFind" href="#">
+        <span class="shopName">Preise suchen</span>
+        <span class="shopHint">Preis-Finder ›</span>
+      </a>
+
+      <div class="settingsButtons sheetButtons">
+        <button id="sheetToggleBought" type="button">Als gekauft markieren</button>
+        <button id="sheetSave" type="button">Speichern</button>
+      </div>
+      <div class="settingsButtons sheetButtons">
+        <button id="sheetDelete" type="button" class="secondary danger">Löschen</button>
+        <button id="sheetClose" type="button" class="secondary">Schließen</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="wunschliste.js?v=__DEPLOY_SHA__"></script>
+</body>
+</html>
