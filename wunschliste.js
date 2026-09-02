@@ -200,6 +200,34 @@ const SEED = [
          "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
          "YWdlcy9jYTJhZjAyZTc2YzhmZmFjZGQ2YTU5YzllZjk2ZTI0Mi53ZWJw",
   },
+  {
+    id: "seed-asahi-beauty-in-protein",
+    name: "Asahi Slim Up Slim Shape BEAUTY in PROTEIN",
+    what: "Protein-Shake · Kollagen & Figur",
+    who: "Mami & Ich",
+    note: "300 g = 10–20 Portionen (30 g) · pro Portion 15 g Protein, " +
+          "10.000 mg Kollagen, 11 Vitamine, Eisen, Calcium, 300 Mio. " +
+          "Milchsäurebakterien, 94–99 kcal · Sorten: Mango-Orange " +
+          "(mit L-Carnitin) und Acai-Beere (mit Granatapfel-Ferment) · " +
+          "3.204 ¥ bei Melonpanda",
+    img: "https://imgproxy.melonpanda.com/" +
+         "DkOwFWw5Z01p1IfdjNuKHW7VcjrXBOB75o897HeBfkk/rs:auto:1080:1080/" +
+         "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
+         "YWdlcy8zOGViMDAxMDdhYTc2NjhhNWZiNGFjMmYwYmMyNTcwNC5qcGc",
+  },
+  {
+    id: "seed-apadent-total-care",
+    name: "APADENT Total Care Toothpaste",
+    what: "Zahnpasta · Karies, Zahnfleisch, Zahnschmelz",
+    who: "Mami & Ich",
+    note: "120 g · medizinisches Hydroxylapatit (mHAP) zur Remineralisierung, " +
+          "medizinische Zahnpasta (薬用), milder Minzgeschmack · Sangi · " +
+          "bei Melonpanda",
+    img: "https://imgproxy.melonpanda.com/" +
+         "qLjHVof_h2Ux6mkbQwTEOjw-8LBAXnGGX0N_V2iqcMo/rs:auto:1080:1080/" +
+         "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
+         "YWdlcy82ZTk3OWFkNzJkMDRmYTUxZGJkOWZiZTAzYjVhZDliMy5qcGc",
+  },
 ];
 
 const els = {
