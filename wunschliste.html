@@ -50,20 +50,29 @@
     <option value="Technik"></option>
     <option value="Souvenir · Geschenk"></option>
   </datalist>
+  <!-- Startvorschläge; jede weitere Person, die du einträgst, wird beim
+       Laden automatisch ergänzt (siehe refreshSuggestions in wunschliste.js). -->
   <datalist id="whoList">
     <option value="Ich"></option>
     <option value="Mami"></option>
     <option value="Papi"></option>
-    <option value="Großmutter"></option>
+    <option value="Grossi"></option>
     <option value="Geschenk"></option>
   </datalist>
+
+  <div class="searchRow">
+    <input id="searchInput" type="search" inputmode="search"
+           placeholder="🔎 Suchen: Produkt, Kategorie oder Person"
+           aria-label="Liste durchsuchen" autocomplete="off">
+    <button id="searchClear" type="button" class="searchClear hidden" aria-label="Suche zurücksetzen">✕</button>
+  </div>
+
+  <div id="filterRow" class="filterRow hidden"></div>
 
   <div class="listControls">
     <p id="counts" class="counts"></p>
     <button id="viewToggle" type="button" class="toolBtn viewToggle">☰ Tabelle</button>
   </div>
-
-  <div id="filterRow" class="filterRow hidden"></div>
 
   <section id="openSection">
     <div id="rowHead" class="rowHead hidden" aria-hidden="true">
@@ -73,6 +82,9 @@
       <span class="headWho">Für wen</span>
     </div>
     <ul id="openGrid" class="grid"></ul>
+    <p id="noMatch" class="emptyHint hidden">
+      Kein Treffer für diese Suche bzw. diesen Filter.
+    </p>
     <p id="emptyHint" class="emptyHint hidden">
       Noch nichts auf der Liste. Schreib oben einen Produktnamen rein —
       das Bild wird automatisch gesucht (Rakuten / Open Food Facts /

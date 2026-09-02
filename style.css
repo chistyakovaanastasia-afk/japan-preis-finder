@@ -551,3 +551,31 @@ h1 { font-size: 1.35rem; margin: 0; }
 @media (max-width: 400px) {
   .rowHead { display: none; }
 }
+
+/* Suchfeld */
+.searchRow { position: relative; margin-top: 16px; }
+#searchInput {
+  width: 100%;
+  padding: 13px 44px 13px 14px;
+  font-size: .98rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+}
+#searchInput:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+#searchInput::-webkit-search-cancel-button { display: none; }
+.searchClear {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--panel2);
+  color: var(--muted);
+  font-size: .9rem;
+  cursor: pointer;
+}

@@ -25,7 +25,17 @@ const LS_RAKUTEN_KEY = "jpf_rakuten_access_key";
  * das die Seite öffnet — einmal gelöschte Vorschläge kommen nicht zurück.
  * Format: { id: "seed-…", name: "…", note: "…", img: "https://…" }
  */
-const SEED = [];
+const SEED = [
+  {
+    id: "seed-decorte-aq-neck-cream",
+    name: "DECORTÉ AQ Concentrate Neck Cream",
+    what: "Creme · Hals & Dekolleté",
+    who: "",
+    note: "100 ml (3,4 oz) · Kosé Decorté · JQNK",
+    img: "https://decortecosmetics.com/cdn/shop/files/" +
+         "Untitleddesign-2026-06-24T161336.867.png?v=1782332025&width=600",
+  },
+];
 
 const els = {
   addForm: $("addForm"),
@@ -37,6 +47,11 @@ const els = {
   viewToggle: $("viewToggle"),
   filterRow: $("filterRow"),
   rowHead: $("rowHead"),
+  searchInput: $("searchInput"),
+  searchClear: $("searchClear"),
+  noMatch: $("noMatch"),
+  whoList: $("whoList"),
+  whatList: $("whatList"),
   openGrid: $("openGrid"),
   emptyHint: $("emptyHint"),
   boughtSection: $("boughtSection"),
@@ -79,7 +94,8 @@ let state = {
   view: "grid",   // "grid" = Kacheln, "list" = Tabelle
   filter: "",     // "" = alle, sonst Person bzw. NO_PERSON
 };
-let openId = null; // gerade in der Detailansicht geöffnetes Produkt
+let openId = null;   // gerade in der Detailansicht geöffnetes Produkt
+let search = "";     // aktueller Suchtext, absichtlich nicht gespeichert
 
 function load() {
   try {
@@ -269,11 +285,32 @@ function applyPersonColor(el, who) {
   el.style.color = `hsl(${hue} 70% 82%)`;
 }
 
-const matchesFilter = (item) => {
-  if (!state.filter) return true;
-  if (state.filter === NO_PERSON) return !item.who;
-  return (item.who || "") === state.filter;
-};
+// Suche unempfindlich gegen Groß-/Kleinschreibung, Akzente und Umlaut-
+// Schreibweisen machen: "Süßigkeit", "suessigkeit" und "sussigkeit" sollen
+// alle treffen. Dafür werden beide Umschriften gebildet und verglichen.
+const stripMarks = (t) => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+// ä -> a, ß -> ss
+const foldPlain = (t) => stripMarks((t || "").toLowerCase().replace(/ß/g, "ss"));
+
+// ä -> ae, ö -> oe, ü -> ue, ß -> ss
+const foldGerman = (t) => stripMarks((t || "").toLowerCase()
+  .replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss"));
+
+function matchesFilter(item) {
+  if (state.filter === NO_PERSON) {
+    if (item.who) return false;
+  } else if (state.filter && (item.who || "") !== state.filter) {
+    return false;
+  }
+  if (!search) return true;
+  // Jedes Suchwort muss irgendwo vorkommen (Name, Kategorie, Person, Notiz).
+  const text = [item.name, item.what, item.who, item.note].join(" ");
+  const haystack = foldPlain(text) + " \u0000 " + foldGerman(text);
+  return search.split(/\s+/).filter(Boolean)
+    .every((word) => haystack.includes(foldPlain(word)) ||
+                     haystack.includes(foldGerman(word)));
+}
 
 function render() {
   const shown = state.items.filter(matchesFilter);
@@ -295,10 +332,14 @@ function render() {
   els.openGrid.replaceChildren(...open.map(listView ? row : card));
   els.boughtGrid.replaceChildren(...bought.map(listView ? row : card));
 
+  const nothingShown = open.length === 0 && bought.length === 0;
   els.emptyHint.classList.toggle("hidden", state.items.length > 0);
+  els.noMatch.classList.toggle("hidden", !(state.items.length > 0 && nothingShown));
+  const filterLabel = state.filter === NO_PERSON ? "ohne Zuordnung" : state.filter;
   els.counts.textContent = state.items.length
     ? `${open.length} geplant · ${bought.length} erledigt` +
-      (state.filter ? ` · Filter: ${state.filter}` : "")
+      (filterLabel ? ` · ${filterLabel}` : "") +
+      (search ? ` · Suche „${search}“` : "")
     : "";
 
   els.boughtSection.classList.toggle("hidden", bought.length === 0);
@@ -308,6 +349,27 @@ function render() {
   els.boughtChevron.classList.toggle("open", state.boughtOpen);
 
   renderFilters();
+  refreshSuggestions();
+}
+
+// Vorschlagslisten erweitern: alles, was schon einmal vergeben wurde, steht
+// beim nächsten Eintrag als Vorschlag bereit — so lassen sich jederzeit neue
+// Personen (oder Kategorien) ergänzen, ohne den Code anzufassen.
+function refreshSuggestions() {
+  addOptions(els.whoList, state.items.map((i) => i.who));
+  addOptions(els.whatList, state.items.map((i) => i.what));
+}
+
+function addOptions(list, values) {
+  const known = new Set([...list.options].map((o) => o.value.toLowerCase()));
+  for (const value of values) {
+    const v = (value || "").trim();
+    if (!v || known.has(v.toLowerCase())) continue;
+    known.add(v.toLowerCase());
+    const option = document.createElement("option");
+    option.value = v;
+    list.appendChild(option);
+  }
 }
 
 // Filterleiste: „Alle“ + jede vergebene Person (+ „Ohne Zuordnung“).
@@ -685,6 +747,20 @@ els.addForm.addEventListener("submit", (e) => {
   e.preventDefault();
   els.addName.blur();
   addItem(els.addName.value);
+});
+
+els.searchInput.addEventListener("input", () => {
+  search = els.searchInput.value.trim();
+  els.searchClear.classList.toggle("hidden", !search);
+  render();
+});
+
+els.searchClear.addEventListener("click", () => {
+  els.searchInput.value = "";
+  search = "";
+  els.searchClear.classList.add("hidden");
+  els.searchInput.focus();
+  render();
 });
 
 els.viewToggle.addEventListener("click", () => {
