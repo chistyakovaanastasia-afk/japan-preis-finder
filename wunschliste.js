@@ -30,7 +30,7 @@ const SEED = [
     id: "seed-decorte-aq-neck-cream",
     name: "DECORTÉ AQ Concentrate Neck Cream",
     what: "Creme · Hals & Dekolleté",
-    who: "",
+    who: "Mami & Ich",
     note: "100 ml (3,4 oz) · Kosé Decorté · JQNK",
     img: "https://decortecosmetics.com/cdn/shop/files/" +
          "Untitleddesign-2026-06-24T161336.867.png?v=1782332025&width=600",
@@ -297,10 +297,20 @@ const foldPlain = (t) => stripMarks((t || "").toLowerCase().replace(/ß/g, "ss")
 const foldGerman = (t) => stripMarks((t || "").toLowerCase()
   .replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss"));
 
+// "Mami & Ich", "Mami, Papi" oder "Mami und Ich" -> ["Mami", "Ich"] bzw.
+// ["Mami", "Papi"]. So zählt ein Produkt für jede genannte Person.
+function whoNames(item) {
+  return (item.who || "")
+    .split(/\s*(?:[,&+/]|\bund\b)\s*/i)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 function matchesFilter(item) {
+  const names = whoNames(item);
   if (state.filter === NO_PERSON) {
-    if (item.who) return false;
-  } else if (state.filter && (item.who || "") !== state.filter) {
+    if (names.length) return false;
+  } else if (state.filter && !names.includes(state.filter)) {
     return false;
   }
   if (!search) return true;
@@ -356,7 +366,7 @@ function render() {
 // beim nächsten Eintrag als Vorschlag bereit — so lassen sich jederzeit neue
 // Personen (oder Kategorien) ergänzen, ohne den Code anzufassen.
 function refreshSuggestions() {
-  addOptions(els.whoList, state.items.map((i) => i.who));
+  addOptions(els.whoList, state.items.flatMap(whoNames));
   addOptions(els.whatList, state.items.map((i) => i.what));
 }
 
@@ -374,8 +384,9 @@ function addOptions(list, values) {
 
 // Filterleiste: „Alle“ + jede vergebene Person (+ „Ohne Zuordnung“).
 function renderFilters() {
-  const people = [...new Set(state.items.map((i) => i.who).filter(Boolean))].sort();
-  const hasUnassigned = state.items.some((i) => !i.who);
+  const people = [...new Set(state.items.flatMap(whoNames))]
+    .sort((a, b) => a.localeCompare(b, "de"));
+  const hasUnassigned = state.items.some((i) => whoNames(i).length === 0);
   els.filterRow.classList.toggle("hidden", people.length < 2 && !state.filter);
   if (els.filterRow.classList.contains("hidden")) {
     els.filterRow.replaceChildren();
@@ -411,14 +422,30 @@ function metaCells(item) {
   what.textContent = item.what || "—";
   if (!item.what) what.classList.add("metaEmpty");
 
-  const who = document.createElement("span");
-  who.className = "metaWho";
-  who.textContent = item.who || "—";
-  if (item.who) applyPersonColor(who, item.who);
-  else who.classList.add("metaEmpty");
-
-  wrap.append(what, who);
+  wrap.append(what, whoChips(item));
   return wrap;
+}
+
+// Ein Chip je Person; ohne Zuordnung ein blasses "—".
+function whoChips(item) {
+  const box = document.createElement("span");
+  box.className = "whoBox";
+  const names = whoNames(item);
+  if (!names.length) {
+    const empty = document.createElement("span");
+    empty.className = "metaWho metaEmpty";
+    empty.textContent = "—";
+    box.appendChild(empty);
+    return box;
+  }
+  for (const name of names) {
+    const chip = document.createElement("span");
+    chip.className = "metaWho";
+    chip.textContent = name;
+    applyPersonColor(chip, name);
+    box.appendChild(chip);
+  }
+  return box;
 }
 
 function checkButton(item) {
@@ -516,14 +543,8 @@ function row(item) {
   what.className = "rowWhat" + (item.what ? "" : " metaEmpty");
   what.textContent = item.what || "—";
 
-  const who = document.createElement("div");
-  who.className = "rowWho";
-  const whoChip = document.createElement("span");
-  whoChip.className = "metaWho";
-  whoChip.textContent = item.who || "—";
-  if (item.who) applyPersonColor(whoChip, item.who);
-  else whoChip.classList.add("metaEmpty");
-  who.appendChild(whoChip);
+  const who = whoChips(item);
+  who.classList.add("rowWho");
 
   openBtn.append(imageFor(item, "rowImgWrap"), text, what, who);
   li.append(openBtn, checkButton(item));

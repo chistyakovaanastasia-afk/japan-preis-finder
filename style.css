@@ -579,3 +579,8 @@ h1 { font-size: 1.35rem; margin: 0; }
   font-size: .9rem;
   cursor: pointer;
 }
+
+/* Mehrere Personen je Produkt */
+.whoBox { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
+.meta > .whoBox { justify-self: end; }
+.rowWho { justify-self: end; }
