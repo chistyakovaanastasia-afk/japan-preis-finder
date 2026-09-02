@@ -45,6 +45,27 @@ const SEED = [
     img: "https://cdn11.bigcommerce.com/s-opcezazwov/images/stencil/640w/" +
          "products/1412/2839/WMTPLACENTASERUM30ml__80789.1718714318.jpg",
   },
+  {
+    id: "seed-mission-facial-gommage",
+    name: "MISSION Facial Gommage",
+    what: "Peeling · Gesicht (mild, auch täglich)",
+    who: "Mami & Ich",
+    note: "70 g · schwach saures Gommage mit Glucomannan und gemahlenen " +
+          "Aprikosenkernen, Duft Rosmarin/Zedernholz · FMG & MISSION",
+    img: "https://baseec-img-mng.akamaized.net/images/item/origin/" +
+         "55c8c549e7958db1b9fe45001c171972.jpg?imformat=generic&q=90" +
+         "&im=Resize,width=600,type=normal",
+  },
+  {
+    id: "seed-enzym-aem150",
+    name: "ENZYM AEM150 Eierschalenmembran-Kapseln",
+    what: "Nahrungsergänzung · Gelenke & Haut",
+    who: "Mami & Ich",
+    note: "90 Kapseln · Eierschalenmembran-Pulver, Lachs-Nasenknorpel, " +
+          "Fischkollagen, Elastin, Hyaluron, Niacin, Vitamine B1/B2/B6/B12/C · " +
+          "Enchiem (ENZYM), Osaka",
+    img: "https://enzym.jp/wp/wp-content/uploads/2026/09/AEM150.jpg",
+  },
 ];
 
 const els = {
