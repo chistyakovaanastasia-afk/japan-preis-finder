@@ -187,6 +187,19 @@ const SEED = [
     img: "https://nunibar.com/media/catalog/product/cache/" +
          "dd4850ad4231b6306bceadf38a0bbeed/8/1/81ztc-6zb3l._ac_sl1500_.jpg",
   },
+  {
+    id: "seed-lureaqu-intensive-repair-gel",
+    name: "LUREAQU Intensive Repair Gel",
+    what: "Gel-Serum · Augen, Lippen, Nasolabialfalten",
+    who: "Mami",
+    note: "20 g · fermentierter „Retiniamid“-Komplex mit Niacinamid, " +
+          "Retinylpalmitat und Reiskleie · auch für Elektroporations-Geräte · " +
+          "6.820 ¥ bei Melonpanda",
+    img: "https://imgproxy.melonpanda.com/" +
+         "Xp97caTPfCTPmR9K40SNVPjc2zRVEjnsiBk9UeNmnEY/rs:auto:1080:1080/" +
+         "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
+         "YWdlcy9jYTJhZjAyZTc2YzhmZmFjZGQ2YTU5YzllZjk2ZTI0Mi53ZWJw",
+  },
 ];
 
 const els = {
