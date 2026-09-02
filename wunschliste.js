@@ -98,6 +98,15 @@ const SEED = [
     img: "https://d2w53g1q050m78.cloudfront.net/mamuonlinejp/ec_assets/" +
          "c73eca249feb2fefd5dc3f6c67df1dc4fb5444c9-original.png",
   },
+  {
+    id: "seed-pola-wrinkle-shot",
+    name: "POLA Wrinkle Shot Medical Serum N",
+    what: "Serum · Falten (auch Augenpartie)",
+    who: "Mami",
+    note: "20 g · リンクルショット メディカル セラム N · Wirkstoff NEI-L1 " +
+          "(ニールワン), Quasi-Arzneimittel gegen Falten · POLA, 14.850 ¥",
+    img: "https://www.pola.co.jp/online-store/images/products/g-0850/0850.jpg",
+  },
 ];
 
 const els = {
