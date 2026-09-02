@@ -66,6 +66,38 @@ const SEED = [
           "Enchiem (ENZYM), Osaka",
     img: "https://enzym.jp/wp/wp-content/uploads/2026/09/AEM150.jpg",
   },
+  {
+    id: "seed-perserum-rt",
+    name: "Perserum RT #02 (パーセラムRT美容液)",
+    what: "Serum · Gesicht · Anti-Aging (Retinol)",
+    who: "Ich",
+    note: "14 Sachets (7 × 2 Blatt) · Retinylpalmitat, Niacinamid, Elastin- " +
+          "und Kollagenpeptid · ein Sachet = eine Anwendung · Takamitsu, 3.300 ¥",
+    img: "https://kk-takamitsu.co.jp/wp-content/uploads/2024/11/" +
+         "perserum_rt-1024x845.png",
+  },
+  {
+    id: "seed-recore-inner-balance",
+    name: "RECORE SERUM 乳酸菌インナーバランスケア",
+    what: "Nahrungsergänzung · Darm & Mikrobiom",
+    who: "Ich",
+    note: "30 Kapseln (12 g), 1–2 täglich · Enzamin, Milchsäurebakterien EC-12, " +
+          "Bifidobakterien BR-108, Lactulose, Ballaststoffe · ca. 650 Mrd. " +
+          "Milchsäurebakterien pro Tagesdosis · 5.200 ¥",
+    img: "https://shop.recoreserum.jp/cdn/shop/files/" +
+         "e31f28420630cc821e45f41f6143ee10.png?v=1779069634&width=600",
+  },
+  {
+    id: "seed-mamu-slim-plus",
+    name: "mamu MEDICAL SLIM+",
+    what: "Nahrungsergänzung · Abnehmen & Gewichtskontrolle",
+    who: "Ich",
+    note: "90 Tabletten / 30 Tage (25,2 g), 3 täglich · weiße Bohnen, " +
+          "Kartoffelextrakt (Slendesta WD), Salacia, resistentes Dextrin, " +
+          "Milchsäurebakterien H61 · 5.940 ¥",
+    img: "https://d2w53g1q050m78.cloudfront.net/mamuonlinejp/ec_assets/" +
+         "c73eca249feb2fefd5dc3f6c67df1dc4fb5444c9-original.png",
+  },
 ];
 
 const els = {
