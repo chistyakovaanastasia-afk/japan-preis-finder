@@ -381,3 +381,10 @@ els.closeSettings.addEventListener("click", closeSettings);
 els.settingsPanel.addEventListener("click", (e) => {
   if (e.target === els.settingsPanel) closeSettings();
 });
+
+// Aus der Wunschliste kommend: index.html?q=Produktname sucht direkt los.
+const initialQuery = new URLSearchParams(location.search).get("q");
+if (initialQuery) {
+  els.query.value = initialQuery;
+  runSearch(initialQuery);
+}

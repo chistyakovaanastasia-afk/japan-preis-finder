@@ -214,3 +214,373 @@ h1 { font-size: 1.35rem; margin: 0; }
 .settingsButtons .secondary { background: var(--panel2); color: var(--text); border: 1px solid var(--border); }
 
 .hidden { display: none !important; }
+
+/* ---------- Wunschliste ---------- */
+
+.linkBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.addForm { display: flex; flex-direction: column; gap: 10px; }
+.addForm input {
+  width: 100%;
+  padding: 15px 16px;
+  font-size: 1.05rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+}
+.addForm input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.addForm button {
+  padding: 15px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+}
+.addForm button:active { background: var(--accent2); }
+
+.counts { color: var(--muted); font-size: .9rem; margin: 14px 2px 10px; }
+
+.emptyHint {
+  color: var(--muted);
+  font-size: .92rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 4px 0 0;
+}
+
+/* Kachelraster */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 560px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+.card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.cardMain {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+.cardImgWrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cardImg { width: 100%; height: 100%; object-fit: contain; }
+.cardPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--panel2);
+  color: var(--muted);
+  font-size: 2rem;
+  font-weight: 800;
+}
+.cardText { padding: 10px 12px 12px; }
+.cardName {
+  font-size: .92rem;
+  font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+.cardNote { color: var(--muted); font-size: .8rem; margin-top: 3px; overflow-wrap: break-word; }
+
+/* Abhak-Knopf oben rechts auf der Kachel */
+.checkBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.75);
+  background: rgba(11,15,20,.55);
+  backdrop-filter: blur(3px);
+  color: rgba(255,255,255,.85);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.card.isBought .checkBtn {
+  background: var(--accent);
+  border-color: var(--accent2);
+  color: #fff;
+  opacity: 1;
+}
+
+/* Erledigt: verblasst, aber weiterhin anklickbar */
+.card.isBought .cardMain { opacity: .38; filter: grayscale(1); }
+.card.isBought .cardName { text-decoration: line-through; }
+.card.isBought { border-style: dashed; }
+
+.boughtSection { margin-top: 26px; }
+.boughtToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--muted);
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.chevron { transition: transform .15s ease; display: inline-block; }
+.chevron.open { transform: rotate(90deg); }
+
+/* Sicherung */
+.toolRow { display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; }
+.toolBtn {
+  flex: 1;
+  min-width: 140px;
+  padding: 13px 14px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: .92rem;
+  cursor: pointer;
+}
+.toolBtn:disabled { opacity: .55; }
+.toolHint { color: var(--muted); font-size: .82rem; margin: 10px 2px 0; }
+
+/* Detailansicht */
+.sheetInner { max-height: 92vh; overflow-y: auto; }
+.sheetHead { display: flex; gap: 14px; align-items: center; margin-bottom: 16px; }
+.sheetImg {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.sheetHeadText { min-width: 0; }
+.sheetHeadText h2 { margin: 0; font-size: 1.05rem; overflow-wrap: anywhere; }
+.sheetState { font-size: .82rem; color: var(--muted); }
+.sheetState.done { color: var(--accent2); }
+.textField {
+  width: 100%;
+  padding: 13px 14px;
+  margin-bottom: 14px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 1rem;
+}
+.sheetImgRow { display: flex; gap: 10px; flex-wrap: wrap; }
+.sheetImgStatus { margin: 10px 0 4px; }
+.sheetFind { margin: 6px 0 16px; }
+.sheetButtons { margin-top: 10px; }
+.settingsButtons .danger { color: #ffb4b4; border-color: #5a2b2b; }
+.headerBtns { display: flex; gap: 10px; }
+
+/* Erfassung: Was/wofür + Für wen nebeneinander */
+.addMeta { display: flex; gap: 10px; }
+.addMeta input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 14px;
+  font-size: .95rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+}
+.addMeta input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+
+.listControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 14px 0 10px;
+}
+.listControls .counts { margin: 0; }
+.viewToggle { flex: 0 0 auto; min-width: 0; padding: 9px 14px; font-size: .85rem; }
+
+/* Filter nach Person */
+.filterRow {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.filterChip {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--text);
+  font-size: .85rem;
+  cursor: pointer;
+}
+.filterChip.active {
+  background: var(--accent);
+  border-color: var(--accent2);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Zwei Spalten auf der Kachel: Was/wofür · Für wen */
+.meta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.metaWhat {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+.metaWho {
+  justify-self: end;
+  font-size: .75rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--panel2);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.metaEmpty { color: #5c6b7c; }
+
+/* Tabellenansicht */
+.rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.rowCard { border-radius: 14px; }
+.rowMain {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1.15fr) minmax(0, 1.05fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 50px 10px 10px;
+  background: none;
+  border: none;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.rowImgWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rowImgWrap .cardPlaceholder { font-size: 1.3rem; }
+.rowText { min-width: 0; }
+.rowText .cardName { font-size: .87rem; }
+.rowWhat { font-size: .78rem; color: var(--muted); line-height: 1.25; overflow-wrap: break-word; hyphens: auto; }
+.rowWho { justify-self: end; }
+.rowCard .checkBtn { top: 50%; transform: translateY(-50%); width: 34px; height: 34px; }
+.rowCard.isBought .rowMain { opacity: .4; filter: grayscale(1); }
+.rowCard.isBought .cardName { text-decoration: line-through; }
+
+@media (max-width: 400px) {
+  .rowMain { grid-template-columns: 48px minmax(0, 1fr); row-gap: 6px; }
+  .rowImgWrap { width: 48px; height: 48px; }
+  .rowWhat, .rowWho { grid-column: 2; justify-self: start; }
+}
+
+/* Spaltenüberschriften der Tabellenansicht */
+.rowHead {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1.15fr) minmax(0, 1.05fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 50px 8px 10px;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--muted);
+}
+.rowHead .headWho { justify-self: end; }
+@media (max-width: 400px) {
+  .rowHead { display: none; }
+}
+
+/* Suchfeld */
+.searchRow { position: relative; margin-top: 16px; }
+#searchInput {
+  width: 100%;
+  padding: 13px 44px 13px 14px;
+  font-size: .98rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+}
+#searchInput:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+#searchInput::-webkit-search-cancel-button { display: none; }
+.searchClear {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--panel2);
+  color: var(--muted);
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+/* Mehrere Personen je Produkt */
+.whoBox { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
+.meta > .whoBox { justify-self: end; }
+.rowWho { justify-self: end; }
