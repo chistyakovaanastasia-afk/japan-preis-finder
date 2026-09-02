@@ -35,6 +35,16 @@ const SEED = [
     img: "https://decortecosmetics.com/cdn/shop/files/" +
          "Untitleddesign-2026-06-24T161336.867.png?v=1782332025&width=600",
   },
+  {
+    id: "seed-wmt-placenta-serum",
+    name: "ARTISTIC&CO. WMT Placenta Serum",
+    what: "Serum · Gesicht · Pigmentflecken",
+    who: "Mami",
+    note: "30 ml · wasserfreie Formel mit Pferdeplazenta (Hokkaido), " +
+          "Vitamin C (Ascorbylglucosid) und Ceramiden",
+    img: "https://cdn11.bigcommerce.com/s-opcezazwov/images/stencil/640w/" +
+         "products/1412/2839/WMTPLACENTASERUM30ml__80789.1718714318.jpg",
+  },
 ];
 
 const els = {
