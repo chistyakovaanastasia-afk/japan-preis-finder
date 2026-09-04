@@ -270,6 +270,18 @@ const SEED = [
     img: "https://www.beautygarage.jp/medias/sys_master/images/h4d/he8/" +
          "12603324203038.jpg",
   },
+  {
+    id: "seed-ferialab-deazaflavin-5ala",
+    name: "FeriaLab Deazaflavin plus 5-ALA",
+    what: "Nahrungsergänzung · Anti-Aging & Mitochondrien",
+    who: "Familie",
+    note: "30 Kapseln (9,45 g), 1 täglich = 1 Monat · 30 mg 5-Deazaflavin " +
+          "(TND1128) pro Kapsel, dazu 5-ALA, Coenzym Q10, Zink-Hefe und " +
+          "Rotwein-Extrakt · benri.ru 14.790 ₽ (≈ 26.600 ¥); auf Rakuten " +
+          "20-Kapsel-Beutel 8.415 ¥, 30 Kapseln ab 19.800 ¥",
+    img: "https://benri.ru/thumb/2/Em56NKK9WnYSaj_6-YVdBA/350r350/d/" +
+         "51fgun4enal_ac_sx679.jpg",
+  },
 ];
 
 const els = {
