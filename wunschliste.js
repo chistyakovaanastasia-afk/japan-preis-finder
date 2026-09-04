@@ -238,6 +238,16 @@ const SEED = [
           "(Shop „Hiro land“, Versand innerhalb Japans frei)",
     img: "https://japonabeauty.com/wp-content/uploads/2026/03/img_4929-1.jpeg",
   },
+  {
+    id: "seed-chondroitin-e-plus",
+    name: "コンドロイチンE プラス (Chondroitin E Plus)",
+    what: "Nahrungsergänzung · Gelenke & Knorpel",
+    who: "",
+    note: "2 Dosen à 90 Tabletten, 3 täglich = je 30 Tage · Chondroitin aus " +
+          "Tintenfischknorpel, N-Acetylglucosamin, Anserin, Teufelskralle, " +
+          "Hyaluronsäure · Nihon Chokuhan (Rakuten-Shop), 6.110 ¥",
+    img: "https://image.rakuten.co.jp/nihonchokuhan/cabinet/250/250417-01.jpg",
+  },
 ];
 
 const els = {
