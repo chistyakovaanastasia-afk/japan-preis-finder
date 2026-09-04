@@ -228,6 +228,14 @@ const SEED = [
          "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
          "YWdlcy82ZTk3OWFkNzJkMDRmYTUxZGJkOWZiZTAzYjVhZDliMy5qcGc",
   },
+  {
+    id: "seed-grown-care-nail-oil",
+    name: "Grown Care Oil (Nagelöl)",
+    what: "Öl · Nägel & Nagelhaut",
+    who: "",
+    note: "10 ml Pipettenfläschchen · 3.200 ¥ bei japonabeauty",
+    img: "https://japonabeauty.com/wp-content/uploads/2026/03/img_4929-1.jpeg",
+  },
 ];
 
 const els = {
