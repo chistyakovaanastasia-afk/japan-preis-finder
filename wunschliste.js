@@ -242,11 +242,33 @@ const SEED = [
     id: "seed-chondroitin-e-plus",
     name: "コンドロイチンE プラス (Chondroitin E Plus)",
     what: "Nahrungsergänzung · Gelenke & Knorpel",
-    who: "",
+    who: "Familie",
     note: "2 Dosen à 90 Tabletten, 3 täglich = je 30 Tage · Chondroitin aus " +
           "Tintenfischknorpel, N-Acetylglucosamin, Anserin, Teufelskralle, " +
           "Hyaluronsäure · Nihon Chokuhan (Rakuten-Shop), 6.110 ¥",
     img: "https://image.rakuten.co.jp/nihonchokuhan/cabinet/250/250417-01.jpg",
+  },
+  {
+    id: "seed-lamer-md-metabolaid",
+    name: "Lamer MD (früher Metabolaid Cysteine)",
+    what: "Nahrungsergänzung · Abnehmen & Stoffwechsel",
+    who: "Ich",
+    note: "60 Kapseln (21 g), 2–4 täglich · pro 4 Kapseln 500 mg Metabolaid " +
+          "(Hibiskus + Zitronenverbene, spanisches Patent) und 168 mg " +
+          "Cystein-Hefeextrakt · Lamer, UVP 6.800 ¥ zzgl. Steuer",
+    img: "https://lamer-avs.co.jp/wps/wp-content/uploads/2026/04/MD-2026.jpg",
+  },
+  {
+    id: "seed-lamer-haritamago",
+    name: "Lamer HARITAMAGO",
+    what: "Nahrungsergänzung · Haut & Gelenke",
+    who: "Familie",
+    note: "120 Kapseln (30 g), 4 täglich = 1.000 mg · davon 450 mg " +
+          "wasserlösliches Eierschalenmembran-Pulver (US-Patentverfahren) " +
+          "mit Kollagen, Elastin und 20 Aminosäuren · enthält Ei · " +
+          "Lamer, UVP 6.800 ¥",
+    img: "https://www.beautygarage.jp/medias/sys_master/images/h4d/he8/" +
+         "12603324203038.jpg",
   },
 ];
 
