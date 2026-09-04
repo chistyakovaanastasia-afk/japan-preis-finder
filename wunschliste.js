@@ -230,10 +230,12 @@ const SEED = [
   },
   {
     id: "seed-grown-care-nail-oil",
-    name: "Grown Care Oil (Nagelöl)",
+    name: "Grown Care Cuticle Care Oil",
     what: "Öl · Nägel & Nagelhaut",
-    who: "",
-    note: "10 ml Pipettenfläschchen · 3.200 ¥ bei japonabeauty",
+    who: "Ich",
+    note: "10 ml · Pflanzenöle mit Pferdeöl und Bergamotte · " +
+          "3.200 ¥ bei japonabeauty, auf Rakuten ab 1.729 ¥ inkl. Steuer " +
+          "(Shop „Hiro land“, Versand innerhalb Japans frei)",
     img: "https://japonabeauty.com/wp-content/uploads/2026/03/img_4929-1.jpeg",
   },
 ];
