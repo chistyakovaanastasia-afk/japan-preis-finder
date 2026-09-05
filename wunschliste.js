@@ -295,6 +295,18 @@ const SEED = [
          "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
          "YWdlcy9mMTdjNTAxMGRkZjkxOThlN2Q4NTBjZmIzZDVlMjQ5OS5qcGc",
   },
+  {
+    id: "seed-sana-esteny-salt-scrub",
+    name: "SANA Esteny Salt Body Scrub",
+    what: "Peeling · Körper",
+    who: "Mami & Ich",
+    note: "350 g · aufschäumendes Salzpeeling mit französischem " +
+          "Lorraine-Steinsalz, Kokosöl, Natriumhyaluronat und " +
+          "Succinoyl-Atelokollagen, frischer Zitrusduft · " +
+          "bei Nunibar 827 ₽ statt 930 ₽ (≈ 1.490 ¥)",
+    img: "https://nunibar.com/media/catalog/product/cache/" +
+         "dd4850ad4231b6306bceadf38a0bbeed/e/s/esteny_salt_img_04.jpg",
+  },
 ];
 
 const els = {
