@@ -282,6 +282,19 @@ const SEED = [
     img: "https://benri.ru/thumb/2/Em56NKK9WnYSaj_6-YVdBA/350r350/d/" +
          "51fgun4enal_ac_sx679.jpg",
   },
+  {
+    id: "seed-alaplus-5ala-20",
+    name: "ALAPLUS 5-ALA 20 (アラプラス 5-ALA)",
+    what: "Nahrungsergänzung · Energie & Schlafrhythmus",
+    who: "Familie",
+    note: "60 Tabletten = 30 Tage, 2 täglich · Tagesdosis 20 mg 5-ALA " +
+          "(5-Aminolävulinsäure-Phosphat) plus Eisencitrat · " +
+          "SBI ALApromo · 3.600 ¥ bei Melonpanda",
+    img: "https://imgproxy.melonpanda.com/" +
+         "OJAE6IGPHb9kVIuAeY8hRM41h36lli4VMsrY0IC5-9I/rs:auto:1080:1080/" +
+         "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
+         "YWdlcy9mMTdjNTAxMGRkZjkxOThlN2Q4NTBjZmIzZDVlMjQ5OS5qcGc",
+  },
 ];
 
 const els = {
