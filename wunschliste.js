@@ -307,6 +307,20 @@ const SEED = [
     img: "https://nunibar.com/media/catalog/product/cache/" +
          "dd4850ad4231b6306bceadf38a0bbeed/e/s/esteny_salt_img_04.jpg",
   },
+  {
+    id: "seed-tofu-moritaya-yogurt-pack-n",
+    name: "TOFU MORITAYA Yogurt Pack N",
+    what: "Maske · Gesicht · Feuchtigkeit & Hautbarriere",
+    who: "",
+    note: "150 g · abwaschbare Creme-Maske aus fermentierter Sojamilch mit " +
+          "Joghurt-Extrakt, Honig, Lactoferrin, Gelée royale, Reis-Milch" +
+          "säurebakterien und Soja-Ceramiden · 5 Minuten einwirken " +
+          "(optional 15–20) · Tofu no Moritaya · 2.565 ¥ bei Melonpanda",
+    img: "https://imgproxy.melonpanda.com/" +
+         "vfI0mBGqnHqgaqg35GYg1nc-j6faTxOWPlHC7RhL2Zo/rs:auto:1080:1080/" +
+         "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
+         "YWdlcy9lMjU1MTc0OTg3NzYxYjY0MzJkMWUxM2ViNTQ1ZTBlNC5qcGc",
+  },
 ];
 
 const els = {
