@@ -311,7 +311,7 @@ const SEED = [
     id: "seed-tofu-moritaya-yogurt-pack-n",
     name: "TOFU MORITAYA Yogurt Pack N",
     what: "Maske · Gesicht · Feuchtigkeit & Hautbarriere",
-    who: "",
+    who: "Mami & Ich",
     note: "150 g · abwaschbare Creme-Maske aus fermentierter Sojamilch mit " +
           "Joghurt-Extrakt, Honig, Lactoferrin, Gelée royale, Reis-Milch" +
           "säurebakterien und Soja-Ceramiden · 5 Minuten einwirken " +
@@ -320,6 +320,19 @@ const SEED = [
          "vfI0mBGqnHqgaqg35GYg1nc-j6faTxOWPlHC7RhL2Zo/rs:auto:1080:1080/" +
          "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
          "YWdlcy9lMjU1MTc0OTg3NzYxYjY0MzJkMWUxM2ViNTQ1ZTBlNC5qcGc",
+  },
+  {
+    id: "seed-goshu-w-aid-hydration",
+    name: "GOSHU W-AID Hydration Powder",
+    what: "Getränkepulver · Elektrolyte & Flüssigkeit",
+    who: "Ich",
+    note: "10 Sticks à 4,5 g (45 g) · ein Stick auf 300–600 ml Wasser, " +
+          "Salzgehalt 0,2 %, Zitrusgeschmack, kalorienarm und koffeinfrei · " +
+          "für Hitze, Sport, Reisen · Goshu Yakuhin · 1.100 ¥ bei Melonpanda",
+    img: "https://imgproxy.melonpanda.com/" +
+         "3iqgktfCSb02AqM1WDGuqhPg2CpVgqq0Bv0kNg1x8Ks/rs:auto:1080:1080/" +
+         "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
+         "YWdlcy9lMWZjZGI3MmU0ZjJkOGRhYzY2NGUyMTEzYmRiNmY3Mi5qcGc",
   },
 ];
 
