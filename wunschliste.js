@@ -334,6 +334,17 @@ const SEED = [
          "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
          "YWdlcy9lMWZjZGI3MmU0ZjJkOGRhYzY2NGUyMTEzYmRiNmY3Mi5qcGc",
   },
+  {
+    id: "seed-qubi-neck-stretching-cream",
+    name: "Qubi Neck Stretching Cream (ATJ101)",
+    what: "Creme · Hals & Dekolleté",
+    who: "Mami",
+    note: "80 g · mit Fulvinsäure, wasserlöslichem Proteoglykan und dem " +
+          "Peptid Progerline gegen Falten und erschlaffte Haut am Hals · " +
+          "Bi’z Support Center, Japan · rund 3.900 ¥ im Handel",
+    img: "https://www.salon-planet.jp/html/upload/save_image/" +
+         "99H-00210_new.jpg",
+  },
 ];
 
 const els = {
