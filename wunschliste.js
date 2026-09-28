@@ -345,6 +345,18 @@ const SEED = [
     img: "https://www.salon-planet.jp/html/upload/save_image/" +
          "99H-00210_new.jpg",
   },
+  {
+    id: "seed-yuugen-nmn-10000-5ala",
+    name: "Yuugen Life Source β-NMN 10000 + 5-ALA",
+    what: "Nahrungsergänzung · Anti-Aging & Zellenergie",
+    who: "Mami & Ich",
+    note: "30 Päckchen à 2 Kapseln = 30 Tage, morgens zum Essen · pro " +
+          "Tagesdosis 333 mg β-NMN (10.000 mg je Packung), 33 mg 5-ALA, " +
+          "PQQ, Coenzym Q10, Curcumin, Resveratrol und eisenhaltige Hefe · " +
+          "bei 36best 14.177 ₽ statt 20.253 ₽ (≈ 25.500 ¥)",
+    img: "https://36best.com/upload/iblock/cf2/" +
+         "28m8yf1i56i5ip0ber7nxhzpqj7ewrwc.png",
+  },
 ];
 
 const els = {
