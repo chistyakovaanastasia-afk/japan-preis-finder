@@ -357,6 +357,20 @@ const SEED = [
     img: "https://36best.com/upload/iblock/cf2/" +
          "28m8yf1i56i5ip0ber7nxhzpqj7ewrwc.png",
   },
+  {
+    id: "seed-dopamine-ex-mucuna",
+    name: "Dopamine Ex (Mucuna-Extrakt)",
+    what: "Nahrungsergänzung · Stimmung & Antrieb",
+    who: "Familie",
+    note: "30 Kapseln = 30 Tage, 1 täglich · pro Kapsel 350 mg L-Dopa aus " +
+          "Mucuna-Bohnen (7 Sorten), dazu Phosphatidylserin, " +
+          "Ingwerblatt-Extrakt, GABA und L-Tyrosin · bei 36best 1.440 ₽ " +
+          "statt 1.600 ₽ (≈ 2.590 ¥) · L-Dopa ist pharmakologisch aktiv: " +
+          "bei Medikamenten (v. a. Antidepressiva, Blutdruck, Parkinson) " +
+          "und in der Schwangerschaft vorher ärztlich abklären",
+    img: "https://36best.com/upload/iblock/fd0/" +
+         "lhdzox2dwkfofs29yct56iukwv6tz1fj.jpg",
+  },
 ];
 
 const els = {
