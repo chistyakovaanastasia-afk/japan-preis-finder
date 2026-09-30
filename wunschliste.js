@@ -371,6 +371,19 @@ const SEED = [
     img: "https://36best.com/upload/iblock/fd0/" +
          "lhdzox2dwkfofs29yct56iukwv6tz1fj.jpg",
   },
+  {
+    id: "seed-ohm-neck-tightening-mask",
+    name: "OHM Neck Tightening Mask",
+    what: "Maske · Hals · Venusringe & Straffung",
+    who: "",
+    note: "5 Bio-Cellulose-Masken à 18 ml · Dynalift (sofortiger Lifting-Film), " +
+          "Nahlsgen (Kollagenaufbau), Chronoline und Fullerene · ohne Parabene, " +
+          "Silikone, Alkohol, Mineralöle, synthetische Duft- und Farbstoffe · " +
+          "6.600 ¥ inkl. Steuer",
+    img: "https://cdn11.bigcommerce.com/s-opcezazwov/images/stencil/640w/" +
+         "products/1596/3490/Screenshot_2025-09-21_at_23.55.24__26203." +
+         "1758466578.png",
+  },
 ];
 
 const els = {
