@@ -375,7 +375,7 @@ const SEED = [
     id: "seed-ohm-neck-tightening-mask",
     name: "OHM Neck Tightening Mask",
     what: "Maske · Hals · Venusringe & Straffung",
-    who: "",
+    who: "Mami & Ich",
     note: "5 Bio-Cellulose-Masken à 18 ml · Dynalift (sofortiger Lifting-Film), " +
           "Nahlsgen (Kollagenaufbau), Chronoline und Fullerene · ohne Parabene, " +
           "Silikone, Alkohol, Mineralöle, synthetische Duft- und Farbstoffe · " +
