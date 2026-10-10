@@ -384,6 +384,31 @@ const SEED = [
          "products/1596/3490/Screenshot_2025-09-21_at_23.55.24__26203." +
          "1758466578.png",
   },
+  {
+    id: "seed-kao-deepclean-onkan",
+    name: "KAO Deep Clean 薬用温感ハミガキ",
+    what: "Zahnpasta · Zahnfleisch & Parodontitis (Wärmeeffekt)",
+    who: "",
+    note: "85 g · wärmt beim Putzen auf ca. 40 °C (wasserfreies " +
+          "Magnesiumsulfat), Zahnfleisch-Reparaturwirkstoff ALCA " +
+          "(Allantoin-Chlorhydroxyaluminium) und 1.450 ppm Fluorid · " +
+          "medizinische Zahnpasta · in Japan ca. 1.375 ¥, " +
+          "im Post 2.200 ¥",
+    img: "https://kao-h.assetsadobe3.com/is/image/content/dam/sites/kao/" +
+         "www-kao-co-jp/deepclean/products/onkan/pkg_pc.png?fmt=png-alpha",
+  },
+  {
+    id: "seed-bublos-carbonated-foam",
+    name: "BUBLOS 炭酸泡ハミガキ Fresh Mint 01",
+    what: "Zahnpflege-Schaum · Zahnzwischenräume & Mundgeruch",
+    who: "",
+    note: "80 g = ca. 1 Monat bei einmal täglich · erster japanischer " +
+          "Aerosol-Zahnschaum: CO₂-Mikrobläschen reinigen bis in die " +
+          "Zahnzwischenräume · Wirkstoffe IPMP (antibakteriell) und GK2 " +
+          "(entzündungshemmend) · I-ne · in Japan 1.485 ¥, im Post 2.900 ¥",
+    img: "https://ainz-tulpe.jp/cdn/shop/files/" +
+         "4571607690414_8386394b-0f88-414f-bf8d-1491e29f6d54.jpg?width=640",
+  },
 ];
 
 const els = {
