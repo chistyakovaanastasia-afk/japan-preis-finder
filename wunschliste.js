@@ -424,6 +424,19 @@ const SEED = [
     img: "https://www.beautygarage.jp/medias/sys_master/images/h2a/he3/" +
          "13875437764638.jpg",
   },
+  {
+    id: "seed-bsai-np3-skin-morning-gel",
+    name: "bsai np3 Skin Morning Gel",
+    what: "Reinigung · Gesicht · morgens",
+    who: "Ich",
+    note: "120 g · Morgenreinigung: löst Schweiß und Talg der Nacht und " +
+          "bereitet die Haut aufs Make-up vor · drei Vitamin-C-Derivate, " +
+          "Plazenta-Extrakt, Ceramide, Hyaluron, Enzyme · süßlich-blumiger " +
+          "Duft · Gegenstück zum Clay Night Foam · Herstellerpreis 3.000 ¥; " +
+          "bei benri 1.509 ₽ statt 1.775 ₽ (−15 %, ≈ 2.710 ¥)",
+    img: "https://www.beautygarage.jp/medias/sys_master/images/h4f/h36/" +
+         "13875442450462.jpg",
+  },
 ];
 
 const els = {
