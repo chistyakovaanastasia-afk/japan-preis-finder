@@ -411,6 +411,19 @@ const SEED = [
     img: "https://ainz-tulpe.jp/cdn/shop/files/" +
          "4571607690414_8386394b-0f88-414f-bf8d-1491e29f6d54.jpg?width=640",
   },
+  {
+    id: "seed-bsai-np3-clay-night-foam",
+    name: "bsai np3 Clay Night Foam",
+    what: "Reinigung · Gesicht · Poren & Talg (abends)",
+    who: "",
+    note: "120 g · Nachtreinigung im Clay-Pack-Stil mit Torf aus Hokkaido " +
+          "und drei Enzymen (Lipase, Protease, Papain), dazu Plazenta-Extrakt, " +
+          "Vitamin-C-Derivate, Ceramide und Hyaluron · parfümarm · " +
+          "Herstellerpreis 3.500 ¥; bei benri 1.760 ₽ statt 2.071 ₽ " +
+          "(−15 %, ≈ 3.160 ¥)",
+    img: "https://www.beautygarage.jp/medias/sys_master/images/h2a/he3/" +
+         "13875437764638.jpg",
+  },
 ];
 
 const els = {
