@@ -390,7 +390,7 @@ const SEED = [
     id: "seed-kao-deepclean-onkan",
     name: "KAO Deep Clean 薬用温感ハミガキ",
     what: "Zahnpasta · Zahnfleisch & Parodontitis (Wärmeeffekt)",
-    who: "",
+    who: "Ich",
     note: "85 g · wärmt beim Putzen auf ca. 40 °C (wasserfreies " +
           "Magnesiumsulfat), Zahnfleisch-Reparaturwirkstoff ALCA " +
           "(Allantoin-Chlorhydroxyaluminium) und 1.450 ppm Fluorid · " +
@@ -403,7 +403,7 @@ const SEED = [
     id: "seed-bublos-carbonated-foam",
     name: "BUBLOS 炭酸泡ハミガキ Fresh Mint 01",
     what: "Zahnpflege-Schaum · Zahnzwischenräume & Mundgeruch",
-    who: "",
+    who: "Ich",
     note: "80 g = ca. 1 Monat bei einmal täglich · erster japanischer " +
           "Aerosol-Zahnschaum: CO₂-Mikrobläschen reinigen bis in die " +
           "Zahnzwischenräume · Wirkstoffe IPMP (antibakteriell) und GK2 " +
@@ -415,7 +415,7 @@ const SEED = [
     id: "seed-bsai-np3-clay-night-foam",
     name: "bsai np3 Clay Night Foam",
     what: "Reinigung · Gesicht · Poren & Talg (abends)",
-    who: "",
+    who: "Ich",
     note: "120 g · Nachtreinigung im Clay-Pack-Stil mit Torf aus Hokkaido " +
           "und drei Enzymen (Lipase, Protease, Papain), dazu Plazenta-Extrakt, " +
           "Vitamin-C-Derivate, Ceramide und Hyaluron · parfümarm · " +
