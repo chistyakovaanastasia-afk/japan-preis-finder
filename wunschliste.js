@@ -437,6 +437,19 @@ const SEED = [
     img: "https://www.beautygarage.jp/medias/sys_master/images/h4f/h36/" +
          "13875442450462.jpg",
   },
+  {
+    id: "seed-relabeaute-clea-skin-fine-wash",
+    name: "RE L’ABEAUTE CléA Skin Fine Wash",
+    what: "Reinigung · Gesicht · Make-up-Entfernung",
+    who: "Ich",
+    note: "150 ml · ionisierter Schaum löst oxidierte Rückstände und " +
+          "überschüssige Hornschicht, ohne die Haut auszutrocknen · " +
+          "Knochenmark-Stammzellen-Kulturextrakt, Saccharomyces-Ferment-Basis · " +
+          "Salonexklusiv, 6.050 ¥ inkl. Steuer",
+    img: "https://colors-beauty.co.jp/relamour-relabeaute/wp-content/uploads/" +
+         "2024/09/%E3%82%AF%E3%83%AC%E3%82%A2%E3%82%B9%E3%82%AD%E3%83%B3" +
+         "%E3%82%A6%E3%82%A9%E3%83%83%E3%82%B7%E3%83%A5.png",
+  },
 ];
 
 const els = {
