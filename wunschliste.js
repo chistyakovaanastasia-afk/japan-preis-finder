@@ -450,6 +450,30 @@ const SEED = [
          "2024/09/%E3%82%AF%E3%83%AC%E3%82%A2%E3%82%B9%E3%82%AD%E3%83%B3" +
          "%E3%82%A6%E3%82%A9%E3%83%83%E3%82%B7%E3%83%A5.png",
   },
+  {
+    id: "seed-careness-teracare-shampoo",
+    name: "CARENESS TERACARE Shampoo",
+    what: "Shampoo · Haare & Kopfhaut · Serum-Shampoo",
+    who: "Ich",
+    note: "500 ml · silikonfrei · Serum-Shampoo: regt Haarwachstum an, " +
+          "verlängert den Haarzyklus, reinigt die Kopfhaut tief ohne zu " +
+          "reizen, reguliert die Talgproduktion, auch für empfindliche " +
+          "Kopfhaut · Kollagen + RICE B50 · Japan-UVP 5.000 ¥ ohne Steuer " +
+          "(@cosme 6.578 ¥ inkl.) · benri.ru 3.660 ₽ ≈ 6.580 ¥",
+    img: "https://mirai-shop.com/wp-content/uploads/2026/10/wa-42280-1.jpg",
+  },
+  {
+    id: "seed-careness-teracare-treatment",
+    name: "CARENESS TERACARE Treatment",
+    what: "Conditioner / Kur · Haare · Haarausfall & Aufbau",
+    who: "Ich",
+    note: "400 g · Spülung zum Shampoo: beugt Haarausfall vor, repariert " +
+          "geschädigte Stellen, macht das Haar glatt und glänzend · " +
+          "Polyquaternium-61, Haarwurzel-Stammzellen-Kulturextrakt, " +
+          "RICE B50 · Japan-UVP 5.000 ¥ ohne Steuer · " +
+          "benri.ru 3.660 ₽ ≈ 6.580 ¥",
+    img: "https://mirai-shop.com/wp-content/uploads/2026/10/wa-42283-1.jpg",
+  },
 ];
 
 const els = {
