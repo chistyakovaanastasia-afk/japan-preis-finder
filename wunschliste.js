@@ -255,9 +255,10 @@ const SEED = [
     who: "Ich",
     note: "60 Kapseln (21 g), 2–4 täglich · pro 4 Kapseln 500 mg Metabolaid " +
           "(Hibiskus + Zitronenverbene, spanisches Patent) und 168 mg " +
-          "Cystein-Hefeextrakt · Lamer, UVP 6.800 ¥ zzgl. Steuer · " +
-          "bei benri Wladiwostok (Lagerware in Russland) 4.333 ₽ statt " +
-          "4.814 ₽, also ≈ 7.800 ¥",
+          "Cystein-Hefeextrakt · Lamer, UVP 6.800 ¥ zzgl. Steuer " +
+          "(= 7.480 ¥ inkl.) · benri.ru Hauptshop 3.892 ₽ statt " +
+          "4.578 ₽ ≈ 7.000 ¥ (günstigste Quelle) · benri Wladiwostok " +
+          "(Lagerware in Russland) 4.333 ₽ ≈ 7.800 ¥",
     img: "https://lamer-avs.co.jp/wps/wp-content/uploads/2026/04/MD-2026.jpg",
   },
   {
