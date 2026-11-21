@@ -224,9 +224,9 @@ const SEED = [
           "medizinische Zahnpasta (薬用), milder Minzgeschmack · Sangi · " +
           "bei Melonpanda",
     img: "https://imgproxy.melonpanda.com/" +
-         "qLjHVof_h2Ux6mkbQwTEOjw-8LBAXnGGX0N_V2iqcMo/rs:auto:1080:1080/" +
+         "cDPhp209NF1_S3M9PpKNeA6Hkg7e81r0YTjB2UNvCY8/rs:fit:422:448/" +
          "ar:0/sm:1/scp:1/cb:1/aHR0cHM6Ly9tZWxvbnBhbmRhLmNvbS91cGxvYWRzL2lt" +
-         "YWdlcy82ZTk3OWFkNzJkMDRmYTUxZGJkOWZiZTAzYjVhZDliMy5qcGc",
+         "YWdlcy80NGQzYzlmM2FkMDNlNmU5MDM0NDdkMjFmOTQwYjFkMy5qcGc",
   },
   {
     id: "seed-grown-care-nail-oil",
@@ -488,6 +488,23 @@ const SEED = [
           "≈ 16.500 ¥ · 650 g",
     img: "https://benri.ru/storage/uploads/" +
          "01a1c94e-fb42-7335-9190-47e3be45c432.webp",
+  },
+  {
+    id: "seed-canday-cherica-set-essence-maeil-glow-mask",
+    name: "Canday CHERICA Essence + MAEIL GLOW MASK (Set)",
+    what: "Booster-Essenz + Schaummaske · Gesicht · Anti-Aging",
+    who: "Ich",
+    note: "Set: CHERICA Essence 150 ml (Einleitungs-/Booster-Serum direkt " +
+          "nach der Reinigung) + CHERICA MAEIL GLOW MASK 95 ml " +
+          "(feuchtigkeitsspendende Schaummaske, morgens gegen Schwellungen " +
+          "und für besseres Make-up-Finish) + Stofftasche · Wirkstoff ImS: " +
+          "Kulturüberstand unsterblicher humaner Dental-Pulpa-Stammzellen · " +
+          "ohne Mineralöl, Silikon, Ethanol, Konservierungs- und " +
+          "Farbstoffe · Essenz allein in Japan ca. 22.000 ¥ (Händlerpreis, " +
+          "nicht offiziell bestätigt) · benri.ru 14.272 ₽ (statt 17.840 ₽) " +
+          "≈ 25.650 ¥ · 580 g · nur noch 2 Stück",
+    img: "https://benri.ru/storage/uploads/" +
+         "01a15c69-97c6-727c-a110-fe7962acb34c.webp",
   },
 ];
 
