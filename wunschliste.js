@@ -474,6 +474,21 @@ const SEED = [
           "benri.ru 3.660 ₽ ≈ 6.580 ¥",
     img: "https://mirai-shop.com/wp-content/uploads/2026/10/wa-42283-1.jpg",
   },
+  {
+    id: "seed-lureaqu-vcva-special-limited-set-2026",
+    name: "LUREAQU VCVA Special Limited Set 2026",
+    what: "Pflegeset · Gesicht · Anti-Aging (Vitamin C + Retinol)",
+    who: "Ich",
+    note: "Limitiertes 3er-Set: VCVA Lotion 160 ml + VCVA Serum 30 ml + " +
+          "ALLTIME Cream 50 g, dazu Geschenktüte, Band, Karte, Booklet · " +
+          "reines Vitamin C und doppeltes Retinol (Retinol + Hyretin®) in " +
+          "sauerstofffreier Herstellung, 5-fach-Kollagen-Komplex, Ceramide, " +
+          "Hyaluron · salonexklusiv · Einzelpreise Japan 5.500 + 6.600 + " +
+          "7.040 = 19.140 ¥ inkl. Steuer · benri.ru 9.180 ₽ (statt 15.300 ₽) " +
+          "≈ 16.500 ¥ · 650 g",
+    img: "https://benri.ru/storage/uploads/" +
+         "01a1c94e-fb42-7335-9190-47e3be45c432.webp",
+  },
 ];
 
 const els = {
