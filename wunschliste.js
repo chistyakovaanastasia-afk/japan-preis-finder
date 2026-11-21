@@ -506,6 +506,20 @@ const SEED = [
     img: "https://benri.ru/storage/uploads/" +
          "01a15c69-97c6-727c-a110-fe7962acb34c.webp",
   },
+  {
+    id: "seed-unish-curve-slim-sheet",
+    name: "UNISH CURVE SLIM SHEET",
+    what: "Körperpflaster · Figur · Taille, Oberarme, Hüfte",
+    who: "Ich",
+    note: "10 Pflaster (2 Beutel à 5), je 110 × 135 mm · Phosphatidylcholin " +
+          "+ L-Carnitin dringen unter Okklusion (ODT) in die Hornschicht ein " +
+          "· für Taille, Oberarm-Innenseite, Lende, Hüfte · Patente in " +
+          "Japan, USA und Europa · Japan-UVP 9.900 ¥ inkl. Steuer " +
+          "(Shops 8.900–11.000 ¥) · benri.ru 7.038 ₽ ≈ 12.650 ¥, also " +
+          "teurer als in Japan · 150 g",
+    img: "https://benri.ru/storage/uploads/" +
+         "01a06ad7-e589-731f-99c9-66cdc1fcd2c7.webp",
+  },
 ];
 
 const els = {
